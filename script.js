@@ -5,7 +5,7 @@ var shoesLabel = document.getElementById("shoesLabel");
 var numOfShoesElement = document.getElementById("numOfShoes");
 var shoesPerClickLabel = document.getElementById("shoesPerClickLabel");
 var shoesPerClickElement = document.getElementById("shoesPerClick");
-var luckyRing = document.getElementById("luckyRing");
+var luckyRingInventoryText = document.getElementById("luckyRing");
 var shoesPerClickUpgradeButton = document.getElementById("upgradeSpc");
 var twoPercentDoubleShoesButton = document.getElementById("twoPercentDoubleShoes");
 var inventoryButton = document.getElementById("inventory");
@@ -22,13 +22,14 @@ shoesLabel.style.display = "block";
 numOfShoesElement.style.display = "block";
 shoesPerClickLabel.style.display = "block";
 shoesPerClickElement.style.display = "block";
-luckyRing.style.display = "none";
+luckyRingInventoryText.style.display = "none";
 shoesPerClickUpgradeButton.style.display = "block";
 twoPercentDoubleShoesButton.style.display = "block";
 backToHomeButton.style.display = "none";
 inventoryButton.style.display = "none";
 
 function clickOnce() {
+
     numOfShoesElement.innerHTML = Number(numOfShoesElement.innerHTML) + Number(shoesPerClickElement.innerHTML);
     if (obtainedLuckyRing == true) {
         if (Math.random() < luckyRingSpecialChance) {
@@ -36,9 +37,11 @@ function clickOnce() {
             numOfShoesElement.innerHTML = Number(numOfShoesElement.innerHTML) + (Number(shoesPerClickElement.innerHTML)) * 2;
         }
     }
+
 }
 
 function upgradeSpc(answer) {
+
     if (Number(numOfShoesElement.innerHTML) < shoesPerClickUpgradeCost) {
         alert("You cannot afford this upgrade!");
     } else if (Number(numOfShoesElement.innerHTML) >= shoesPerClickUpgradeCost) {
@@ -52,11 +55,23 @@ function upgradeSpc(answer) {
             alert("Upgrade canceled.");
         }
     }
+
 }
 
 function twoPercentDoubleShoes(answer) {
+
+    if (obtainedLuckyRing == false) {
+        buyLuckyRing(answer);
+    } else {
+        upgradeLuckyRing(answer);
+    }
+
+}
+
+function buyLuckyRing(answer) {
+
     if (Number(numOfShoesElement.innerHTML) < luckyRingUpgradeCost) {
-        alert("You cannot afford this upgrade!");
+        alert("You cannot afford this purchase!");
     } else if (Number(numOfShoesElement.innerHTML) >= luckyRingUpgradeCost) {
         answer = prompt("Are you sure you would like to purchase this upgrade?");
         if (answer == "Yes" || answer == "yes" || answer == "YES") {
@@ -64,13 +79,36 @@ function twoPercentDoubleShoes(answer) {
             obtainedLuckyRing = true;
             inventoryButton.style.display = "block";
             alert("You've just unlocked your inventory! Go navigate to it to see how it looks!");
+            luckyRingUpgradeCost *= 4;
+            twoPercentDoubleShoesButton.innerHTML = "Upgrade Lucky Ring " + "(" + luckyRingUpgradeCost + " shoes)";
         } else {
             alert("Upgrade canceled.");
         }
     }
+
 }
 
+function upgradeLuckyRing() {
+
+    if (Number(numOfShoesElement.innerHTML) < luckyRingUpgradeCost) {
+        alert("You cannot afford this upgrade!");
+    } else if (Number(numOfShoesElement.innerHTML) >= luckyRingUpgradeCost) {
+        answer = prompt("Are you sure you would like to purchase this upgrade?");
+        if (answer == "Yes" || answer == "yes" || answer == "YES") {
+            numOfShoesElement.innerHTML = Number(numOfShoesElement.innerHTML) - luckyRingUpgradeCost;
+            luckyRingUpgradeCost *= 4;
+            luckyRingSpecialChance *= 2;
+            luckyRingInventoryText.innerHTML = "Lucky Ring [x1] | Grants a " + (luckyRingSpecialChance * 100) + "%" + " chance of obtaining double shoes";
+            twoPercentDoubleShoesButton.innerHTML = "Upgrade Lucky Ring " + "(" + luckyRingUpgradeCost + " shoes)";
+        } else {
+            alert("Upgrade canceled.");
+        }
+    }
+
+}   
+
 function inventoryOpen() {
+
     titleHeading.style.display = "none";
     inventoryHeading.style.display = "block";
     shoeImage.style.display = "none";
@@ -83,11 +121,13 @@ function inventoryOpen() {
     backToHomeButton.style.display = "block";
     inventoryButton.style.display = "none";
     if (obtainedLuckyRing == true) {
-        luckyRing.style.display = "block";
+        luckyRingInventoryText.style.display = "block";
     }
+
 }
 
 function backToHome() {
+
     titleHeading.style.display = "block";
     inventoryHeading.style.display = "none";
     shoeImage.style.display = "block";
@@ -95,9 +135,10 @@ function backToHome() {
     numOfShoesElement.style.display = "block";
     shoesPerClickLabel.style.display = "block";
     shoesPerClickElement.style.display = "block";
-    luckyRing.style.display = "none";
+    luckyRingInventoryText.style.display = "none";
     shoesPerClickUpgradeButton.style.display = "block";
     twoPercentDoubleShoesButton.style.display = "block";
     backToHomeButton.style.display = "none";
     inventoryButton.style.display = "block";
+
 }
