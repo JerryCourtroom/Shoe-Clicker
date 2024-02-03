@@ -8,6 +8,9 @@ var shoesPerClickLabel = document.getElementById("shoesPerClickLabel");
 var shoesPerClickElement = document.getElementById("shoesPerClick");
 var luckyRingInventoryText = document.getElementById("luckyRing");
 var shoesPerClickUpgradeButton = document.getElementById("upgradeSpc");
+var doubleShoesAlert = document.getElementById("doubleShoesAlert");
+var luckyRingMaxUpgradeReachedAlert = document.getElementById("luckyRingMaxUpgradeReachedAlert");
+var cannotAffordUpgradeAlert = document.getElementById("cannotAffordUpgradeAlert");
 var twoPercentDoubleShoesButton = document.getElementById("twoPercentDoubleShoes");
 var unlockAutomationButton = document.getElementById("unlockAutomation");
 var inventoryButton = document.getElementById("inventory");
@@ -29,6 +32,9 @@ shoesPerClickLabel.style.display = "block";
 shoesPerClickElement.style.display = "block";
 luckyRingInventoryText.style.display = "none";
 shoesPerClickUpgradeButton.style.display = "block";
+doubleShoesAlert.style.display = "none";
+cannotAffordUpgradeAlert.style.display = "none";
+luckyRingMaxUpgradeReachedAlert.style.display = "none";
 twoPercentDoubleShoesButton.style.display = "block";
 unlockAutomationButton.style.display = "none";
 backToHomeButton.style.display = "none";
@@ -41,117 +47,114 @@ function clickOnce() {
     setNumOfShoes(Number(numOfShoesElement.innerHTML) + Number(shoesPerClickElement.innerHTML));
     if (obtainedLuckyRing == true) {
         if (Math.random() < luckyRingSpecialChance) {
-            alert("[🍀] | Your lucky ring gave you double shoes!");
+            doubleShoesAlert.style.display = "block";
+            setTimeout(() => {
+                doubleShoesAlert.style.display = "none";
+            }, 1000);
             setNumOfShoes(Number(numOfShoesElement.innerHTML) + (Number(shoesPerClickElement.innerHTML)) * 2);
         }
     }
 
 }
 
-function upgradeSpc(answer) {
+function upgradeSpc() {
 
     if (Number(numOfShoesElement.innerHTML) < shoesPerClickUpgradeCost) {
-        alert("You cannot afford this upgrade!");
+        cannotAffordUpgradeAlert.style.display = "block";
+        setTimeout(() => {
+            cannotAffordUpgradeAlert.style.display = "none";
+        }, 1000);
     } else if (Number(numOfShoesElement.innerHTML) >= shoesPerClickUpgradeCost) {
-        answer = prompt("Are you sure you would like to purchase this upgrade?");
-        if (answer == "Yes" || answer == "yes" || answer == "YES") {
-            setNumOfShoes(Number(numOfShoesElement.innerHTML) - shoesPerClickUpgradeCost);
-            shoesPerClickElement.innerHTML *= 2;
-            shoesPerClickUpgradeCost *= 2;
-            shoesPerClickUpgradeButton.innerHTML = "Upgrade Shoes Per Click " + "(" + shoesPerClickUpgradeCost + " shoes)";
-        } else {
-            alert("Upgrade canceled.");
-        }
+        setNumOfShoes(Number(numOfShoesElement.innerHTML) - shoesPerClickUpgradeCost);
+        shoesPerClickElement.innerHTML *= 2;
+        shoesPerClickUpgradeCost *= 2;
+        shoesPerClickUpgradeButton.innerHTML = "Upgrade Shoes Per Click " + "(" + shoesPerClickUpgradeCost + " shoes)";
     }
 
 }
 
-function twoPercentDoubleShoes(answer) {
+function twoPercentDoubleShoes() {
 
     if (obtainedLuckyRing == false) {
-        buyLuckyRing(answer);
+        buyLuckyRing();
     } else {
-        upgradeLuckyRing(answer);
+        upgradeLuckyRing();
     }
 
 }
 
-function buyLuckyRing(answer) {
+function buyLuckyRing() {
 
     if (Number(numOfShoesElement.innerHTML) < luckyRingUpgradeCost) {
-        alert("You cannot afford this purchase!");
+        cannotAffordUpgradeAlert.style.display = "block";
+        setTimeout(() => {
+            cannotAffordUpgradeAlert.style.display = "none";
+        }, 1000);
     } else if (Number(numOfShoesElement.innerHTML) >= luckyRingUpgradeCost) {
-        answer = prompt("Are you sure you would like to purchase this upgrade?");
-        if (answer == "Yes" || answer == "yes" || answer == "YES") {
-            setNumOfShoes(Number(numOfShoesElement.innerHTML) - luckyRingUpgradeCost);
-            obtainedLuckyRing = true;
-            inventoryButton.style.display = "block";
-            unlockAutomationButton.style.display = "block";
-            alert("You've just unlocked your inventory! Go navigate to it to see how it looks!");
-            luckyRingUpgradeCost *= 4;
-            twoPercentDoubleShoesButton.innerHTML = "Upgrade Lucky Ring " + "(" + luckyRingUpgradeCost + " shoes)";
-        } else {
-            alert("Upgrade canceled.");
-        }
+        setNumOfShoes(Number(numOfShoesElement.innerHTML) - luckyRingUpgradeCost);
+        obtainedLuckyRing = true;
+        inventoryButton.style.display = "block";
+        unlockAutomationButton.style.display = "block";
+        luckyRingUpgradeCost *= 4;
+        twoPercentDoubleShoesButton.innerHTML = "Upgrade Lucky Ring " + "(" + luckyRingUpgradeCost + " shoes)";
     }
 
 }
 
-function upgradeLuckyRing(answer) {
+function upgradeLuckyRing() {
 
     if (Number(numOfShoesElement.innerHTML) < luckyRingUpgradeCost) {
-        alert("You cannot afford this upgrade!");
+        cannotAffordUpgradeAlert.style.display = "block";
+        setTimeout(() => {
+            cannotAffordUpgradeAlert.style.display = "none";
+        }, 1000);
     } else if (Number(numOfShoesElement.innerHTML) >= luckyRingUpgradeCost) {
-        answer = prompt("Are you sure you would like to purchase this upgrade?");
-        if (answer == "Yes" || answer == "yes" || answer == "YES") {
-            setNumOfShoes(Number(numOfShoesElement.innerHTML) - luckyRingUpgradeCost);
-            luckyRingUpgradeCost *= 4;
-            luckyRingSpecialChance *= 2;
+        setNumOfShoes(Number(numOfShoesElement.innerHTML) - luckyRingUpgradeCost);
+        luckyRingUpgradeCost *= 4;
+        luckyRingSpecialChance *= 2;
 
-            if (luckyRingSpecialChance >= luckyRingUpgradeLimit) {
-                alert("[🛑] | You have reached the max upgrade for this item!");
-                twoPercentDoubleShoesButton.style.display = "none";
-            }
-
-            luckyRingInventoryText.innerHTML = "Lucky Ring [x1] | Grants a " + (luckyRingSpecialChance * 100) + "%" + " chance of obtaining double shoes";
-            twoPercentDoubleShoesButton.innerHTML = "Upgrade Lucky Ring " + "(" + luckyRingUpgradeCost + " shoes)";
-        } else {
-            alert("Upgrade canceled.");
+        if (luckyRingSpecialChance >= luckyRingUpgradeLimit) {
+            luckyRingMaxUpgradeReachedAlert.style.display = "block";
+            setTimeout(() => {
+                luckyRingMaxUpgradeReachedAlert.style.display = "none";
+            }, 1000);
+            twoPercentDoubleShoesButton.style.display = "none";
         }
+
+        luckyRingInventoryText.innerHTML = "Lucky Ring [x1] | Grants a " + (luckyRingSpecialChance * 100) + "%" + " chance of obtaining double shoes";
+        twoPercentDoubleShoesButton.innerHTML = "Upgrade Lucky Ring " + "(" + luckyRingUpgradeCost + " shoes)";
     }
 
 }
 
-function unlockAutomation(answer) {
+function unlockAutomation() {
 
     if (obtainedAutomation == false) {
-        buyAutomation(answer);
-    } else {
-        alert("You've already unlocked this upgrade!");
+        buyAutomation();
     }
 
 }
 
-function buyAutomation(answer) {
+function buyAutomation() {
 
     if (Number(numOfShoesElement.innerHTML) < unlockAutomationUpgradeCost) {
-        alert("You cannot afford this upgrade!");
+        cannotAffordUpgradeAlert.style.display = "block";
+        setTimeout(() => {
+            cannotAffordUpgradeAlert.style.display = "none";
+        }, 1000);
     } else if (Number(numOfShoesElement.innerHTML) >= unlockAutomationUpgradeCost) {
-        answer = prompt("Are you sure you would like to purchase this upgrade?");
-        if (answer == "Yes" || answer == "yes" || answer == "YES") {
-            alert("You are now eligible to upgrade 3 new shoe workers:\n\nShoe craftsman - makes 1 shoe per second\n\nShoe squad - makes 5 shoes per second\n\nShoe farm - makes 20 shoes per second");
-            setNumOfShoes(Number(numOfShoesElement.innerHTML) - unlockAutomationUpgradeCost);
-            obtainedAutomation == true;
-        } else {
-            alert("Upgrade canceled.");
-        }
+        setNumOfShoes(Number(numOfShoesElement.innerHTML) - unlockAutomationUpgradeCost);
+        obtainedAutomation = true;
+        unlockAutomationButton.style.display = "none";
     }
 
 }
 
 function setNumOfShoes(value) {
+
     numOfShoesElement.innerHTML = value;
     tabTitle.innerHTML = value + " shoes - Shoe Clicker";
+    
 }
 
 function inventoryOpen() {
