@@ -6,6 +6,8 @@ var shoesLabel = document.getElementById("shoesLabel");
 var numOfShoesElement = document.getElementById("numOfShoes");
 var shoesPerClickLabel = document.getElementById("shoesPerClickLabel");
 var shoesPerClickElement = document.getElementById("shoesPerClick");
+var shoesGainedAutomaticallyLabel = document.getElementById("shoesGainedAutomaticallyLabel");
+var shoesGainedAutomaticallyElement = document.getElementById("shoesGainedAutomatically");
 var luckyRingInventoryText = document.getElementById("luckyRing");
 var shoesPerClickUpgradeButton = document.getElementById("upgradeSpc");
 var doubleShoesAlert = document.getElementById("doubleShoesAlert");
@@ -15,6 +17,11 @@ var twoPercentDoubleShoesButton = document.getElementById("twoPercentDoubleShoes
 var unlockAutomationButton = document.getElementById("unlockAutomation");
 var inventoryButton = document.getElementById("inventory");
 var backToHomeButton = document.getElementById("backToHome");
+var hireWorkerButton = document.getElementById("hireWorker");
+var buyFarmButton = document.getElementById("buyFarm");
+var buyTentButton = document.getElementById("buyTent");
+var shoesPerSecond = 0;
+var numOfShoes = 0;
 var shoesPerClickUpgradeCost = 50;
 var luckyRingUpgradeCost = 5000;
 var luckyRingSpecialChance = 0.02;
@@ -22,6 +29,12 @@ var luckyRingUpgradeLimit = 0.16;
 var obtainedLuckyRing = false;
 var obtainedAutomation = false;
 var unlockAutomationUpgradeCost = 1000000;
+var numOfWorkers = 0;
+var hireWorkerCost = 5000000;
+var numOfFarms = 0;
+var buyFarmCost = 20000000;
+var numOfTents = 0;
+var buyTentCost = 500000000;
 
 titleHeading.style.display = "block";
 inventoryHeading.style.display = "none";
@@ -30,6 +43,8 @@ shoesLabel.style.display = "block";
 numOfShoesElement.style.display = "block";
 shoesPerClickLabel.style.display = "block";
 shoesPerClickElement.style.display = "block";
+shoesGainedAutomaticallyLabel.style.display = "none";
+shoesGainedAutomaticallyElement.style.display = "none";
 luckyRingInventoryText.style.display = "none";
 shoesPerClickUpgradeButton.style.display = "block";
 doubleShoesAlert.style.display = "none";
@@ -37,6 +52,9 @@ cannotAffordUpgradeAlert.style.display = "none";
 luckyRingMaxUpgradeReachedAlert.style.display = "none";
 twoPercentDoubleShoesButton.style.display = "block";
 unlockAutomationButton.style.display = "none";
+hireWorkerButton.style.display = "none";
+buyFarmButton.style.display = "none";
+buyTentButton.style.display = "none";
 backToHomeButton.style.display = "none";
 inventoryButton.style.display = "none";
 
@@ -44,14 +62,14 @@ setNumOfShoes(0);
 
 function clickOnce() {
 
-    setNumOfShoes(Number(numOfShoesElement.innerHTML) + Number(shoesPerClickElement.innerHTML));
+    setNumOfShoes(numOfShoes + Number(shoesPerClickElement.innerHTML));
     if (obtainedLuckyRing == true) {
         if (Math.random() < luckyRingSpecialChance) {
             doubleShoesAlert.style.display = "block";
             setTimeout(() => {
                 doubleShoesAlert.style.display = "none";
             }, 1000);
-            setNumOfShoes(Number(numOfShoesElement.innerHTML) + (Number(shoesPerClickElement.innerHTML)) * 2);
+            setNumOfShoes(numOfShoes + (Number(shoesPerClickElement.innerHTML)) * 2);
         }
     }
 
@@ -59,13 +77,13 @@ function clickOnce() {
 
 function upgradeSpc() {
 
-    if (Number(numOfShoesElement.innerHTML) < shoesPerClickUpgradeCost) {
+    if (numOfShoes < shoesPerClickUpgradeCost) {
         cannotAffordUpgradeAlert.style.display = "block";
         setTimeout(() => {
             cannotAffordUpgradeAlert.style.display = "none";
         }, 1000);
-    } else if (Number(numOfShoesElement.innerHTML) >= shoesPerClickUpgradeCost) {
-        setNumOfShoes(Number(numOfShoesElement.innerHTML) - shoesPerClickUpgradeCost);
+    } else if (numOfShoes >= shoesPerClickUpgradeCost) {
+        setNumOfShoes(numOfShoes - shoesPerClickUpgradeCost);
         shoesPerClickElement.innerHTML *= 2;
         shoesPerClickUpgradeCost *= 2;
         shoesPerClickUpgradeButton.innerHTML = "Upgrade Shoes Per Click " + "(" + shoesPerClickUpgradeCost + " shoes)";
@@ -85,13 +103,13 @@ function twoPercentDoubleShoes() {
 
 function buyLuckyRing() {
 
-    if (Number(numOfShoesElement.innerHTML) < luckyRingUpgradeCost) {
+    if (numOfShoes < luckyRingUpgradeCost) {
         cannotAffordUpgradeAlert.style.display = "block";
         setTimeout(() => {
             cannotAffordUpgradeAlert.style.display = "none";
         }, 1000);
-    } else if (Number(numOfShoesElement.innerHTML) >= luckyRingUpgradeCost) {
-        setNumOfShoes(Number(numOfShoesElement.innerHTML) - luckyRingUpgradeCost);
+    } else if (numOfShoes >= luckyRingUpgradeCost) {
+        setNumOfShoes(numOfShoes - luckyRingUpgradeCost);
         obtainedLuckyRing = true;
         inventoryButton.style.display = "block";
         unlockAutomationButton.style.display = "block";
@@ -103,13 +121,13 @@ function buyLuckyRing() {
 
 function upgradeLuckyRing() {
 
-    if (Number(numOfShoesElement.innerHTML) < luckyRingUpgradeCost) {
+    if (numOfShoes < luckyRingUpgradeCost) {
         cannotAffordUpgradeAlert.style.display = "block";
         setTimeout(() => {
             cannotAffordUpgradeAlert.style.display = "none";
         }, 1000);
-    } else if (Number(numOfShoesElement.innerHTML) >= luckyRingUpgradeCost) {
-        setNumOfShoes(Number(numOfShoesElement.innerHTML) - luckyRingUpgradeCost);
+    } else if (numOfShoes >= luckyRingUpgradeCost) {
+        setNumOfShoes(numOfShoes - luckyRingUpgradeCost);
         luckyRingUpgradeCost *= 4;
         luckyRingSpecialChance *= 2;
 
@@ -137,23 +155,66 @@ function unlockAutomation() {
 
 function buyAutomation() {
 
-    if (Number(numOfShoesElement.innerHTML) < unlockAutomationUpgradeCost) {
+    if (numOfShoes < unlockAutomationUpgradeCost) {
         cannotAffordUpgradeAlert.style.display = "block";
         setTimeout(() => {
             cannotAffordUpgradeAlert.style.display = "none";
         }, 1000);
-    } else if (Number(numOfShoesElement.innerHTML) >= unlockAutomationUpgradeCost) {
-        setNumOfShoes(Number(numOfShoesElement.innerHTML) - unlockAutomationUpgradeCost);
+    } else if (numOfShoes >= unlockAutomationUpgradeCost) {
+        setNumOfShoes(numOfShoes - unlockAutomationUpgradeCost);
         obtainedAutomation = true;
         unlockAutomationButton.style.display = "none";
+        hireWorkerButton.style.display = "block";
+        buyFarmButton.style.display = "block";
+        buyTentButton.style.display = "block";
+        shoesGainedAutomaticallyLabel.style.display = "block";
+        shoesGainedAutomaticallyElement.style.display = "block";
     }
+
+}
+
+function hireWorker() {
+
+    if (numOfShoes < hireWorkerCost) {
+        cannotAffordUpgradeAlert.style.display = "block";
+        setTimeout(() => {
+            cannotAffordUpgradeAlert.style.display = "none";
+        }, 1000);
+    } else if (numOfShoes >= hireWorkerCost) {
+        setNumOfShoes(numOfShoes - hireWorkerCost);
+        numOfWorkers += 1;
+        shoesPerSecond += 500;
+        shoesGainedAutomaticallyElement.innerHTML = shoesPerSecond;
+        hireWorkerButton.innerHTML = "[x" + numOfWorkers + "] " + "Hire Worker (5,000,000 shoes)";
+    }
+
+}
+
+function increaseShoes() {
+    setInterval(() => {
+        setNumOfShoes(numOfShoes + shoesPerSecond);
+    }, 1000);
+}
+
+increaseShoes();
+
+function buyFarm() {
+
+
+
+}
+
+function buyTent() {
+
+
 
 }
 
 function setNumOfShoes(value) {
 
-    numOfShoesElement.innerHTML = value;
-    tabTitle.innerHTML = value + " shoes - Shoe Clicker";
+    numOfShoes = value;
+    numOfShoesElement.innerHTML = numOfShoes;
+    tabTitle.innerHTML = numOfShoes + " shoes | Shoe Clicker";
     
 }
 
@@ -176,6 +237,14 @@ function inventoryOpen() {
         luckyRingInventoryText.style.display = "block";
     }
 
+    if (obtainedAutomation == true) {
+        hireWorkerButton.style.display = "none";
+        buyFarmButton.style.display = "none";
+        buyTentButton.style.display = "none";
+        shoesGainedAutomaticallyLabel.style.display = "none";
+        shoesGainedAutomaticallyElement.style.display = "none";
+    }
+
 }
 
 function backToHome() {
@@ -194,6 +263,14 @@ function backToHome() {
         twoPercentDoubleShoesButton.style.display = "none";
     } else {
         twoPercentDoubleShoesButton.style.display = "block";
+    }
+
+    if (obtainedAutomation == true) {
+        hireWorkerButton.style.display = "block";
+        buyFarmButton.style.display = "block";
+        buyTentButton.style.display = "block";
+        shoesGainedAutomaticallyLabel.style.display = "block";
+        shoesGainedAutomaticallyElement.style.display = "block";
     }
 
     unlockAutomationButton.style.display = "block";
