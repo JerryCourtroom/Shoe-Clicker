@@ -21,8 +21,10 @@ var hireWorkerButton = document.getElementById("hireWorker");
 var buyFarmButton = document.getElementById("buyFarm");
 var buyTentButton = document.getElementById("buyTent");
 var shoesPerSecond = 0;
+var shoesPerClick = 1;
 var numOfShoes = 0;
-var shoesPerClickUpgradeCost = 50;
+var shoesPerClickUpgradeCost = 1500;
+var shoesPerClickUpgradeCostIncrease = 1500;
 var luckyRingUpgradeCost = 5000;
 var luckyRingSpecialChance = 0.02;
 var luckyRingUpgradeLimit = 0.16;
@@ -62,7 +64,6 @@ setNumOfShoes(0);
 
 function clickOnce() {
 
-    setNumOfShoes(numOfShoes + Number(shoesPerClickElement.innerHTML));
     if (obtainedLuckyRing == true) {
         if (Math.random() < luckyRingSpecialChance) {
             doubleShoesAlert.style.display = "block";
@@ -70,7 +71,11 @@ function clickOnce() {
                 doubleShoesAlert.style.display = "none";
             }, 1000);
             setNumOfShoes(numOfShoes + (Number(shoesPerClickElement.innerHTML)) * 2);
+        } else {
+            setNumOfShoes(numOfShoes + Number(shoesPerClickElement.innerHTML));
         }
+    } else {
+        setNumOfShoes(numOfShoes + Number(shoesPerClickElement.innerHTML));
     }
 
 }
@@ -84,12 +89,21 @@ function upgradeSpc() {
         }, 1000);
     } else if (numOfShoes >= shoesPerClickUpgradeCost) {
         setNumOfShoes(numOfShoes - shoesPerClickUpgradeCost);
-        shoesPerClickElement.innerHTML *= 2;
-        shoesPerClickUpgradeCost *= 2;
-        shoesPerClickUpgradeButton.innerHTML = "Upgrade Shoes Per Click " + "(" + shoesPerClickUpgradeCost + " shoes)";
+        shoesPerClick += 1;
+        shoesPerClickUpgradeCostIncrease += 3000;
+        shoesPerClickUpgradeCost += shoesPerClickUpgradeCostIncrease;
+        shoesPerClickUpgradeButton.innerHTML = "Upgrade Shoes per Click " + "(" + shoesPerClickUpgradeCost + " shoes)";
     }
 
 }
+
+function increaseShoesPerClick() {
+    setInterval(() => {
+        setShoesPerClick(shoesPerClick);
+    }, 1000);
+}
+
+increaseShoesPerClick();
 
 function twoPercentDoubleShoes() {
 
@@ -216,6 +230,13 @@ function setNumOfShoes(value) {
     numOfShoesElement.innerHTML = numOfShoes;
     tabTitle.innerHTML = numOfShoes + " shoes | Shoe Clicker";
     
+}
+
+function setShoesPerClick(value) {
+
+    shoesPerClick = value;
+    shoesPerClickElement.innerHTML = shoesPerClick;
+
 }
 
 function inventoryOpen() {
