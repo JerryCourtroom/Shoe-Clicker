@@ -20,19 +20,23 @@ var backToHomeButton = document.getElementById("backToHome");
 var hireWorkerButton = document.getElementById("hireWorker");
 var buyFarmButton = document.getElementById("buyFarm");
 var buyTentButton = document.getElementById("buyTent");
+var shoesPerClickIterationNumber = 1;
+var luckyRingIterationNumber = 1;
+var unlockAutomationIterationNumber = 1;
+var workerIterationNumber = 1;
 var shoesPerSecond = 0;
 var shoesPerClick = 1;
 var numOfShoes = 0;
-var shoesPerClickUpgradeCost = 1500;
+var shoesPerClickUpgradeCost = 20;
 var shoesPerClickUpgradeCostIncrease = 1500;
-var luckyRingUpgradeCost = 5000;
+var luckyRingUpgradeCost = 150;
 var luckyRingSpecialChance = 0.02;
 var luckyRingUpgradeLimit = 0.16;
 var obtainedLuckyRing = false;
 var obtainedAutomation = false;
-var unlockAutomationUpgradeCost = 1000000;
+var unlockAutomationUpgradeCost = 2000;
 var numOfWorkers = 0;
-var hireWorkerCost = 5000000;
+var hireWorkerCost = 2775;
 var numOfFarms = 0;
 var buyFarmCost = 20000000;
 var numOfTents = 0;
@@ -62,6 +66,18 @@ inventoryButton.style.display = "none";
 
 setNumOfShoes(0);
 
+function calculateShoesPerClickCost(value) {
+    return 2.5*(value**2)+17.5*value;
+}
+
+function calculateLuckyRingCost(value) {
+    return 62.5*(value**2)+87.5*value;
+}
+
+function calculateWorkerCost(value) {
+    return 2.5*(value**2)+162.5*value+2610;
+}
+
 function clickOnce() {
 
     if (obtainedLuckyRing == true) {
@@ -89,9 +105,9 @@ function upgradeSpc() {
         }, 1000);
     } else if (numOfShoes >= shoesPerClickUpgradeCost) {
         setNumOfShoes(numOfShoes - shoesPerClickUpgradeCost);
+        shoesPerClickIterationNumber += 1;
         shoesPerClick += 1;
-        shoesPerClickUpgradeCostIncrease += 3000;
-        shoesPerClickUpgradeCost += shoesPerClickUpgradeCostIncrease;
+        shoesPerClickUpgradeCost = calculateShoesPerClickCost(shoesPerClickIterationNumber);
         shoesPerClickUpgradeButton.innerHTML = "Upgrade Shoes per Click " + "(" + shoesPerClickUpgradeCost + " shoes)";
     }
 
@@ -127,7 +143,8 @@ function buyLuckyRing() {
         obtainedLuckyRing = true;
         inventoryButton.style.display = "block";
         unlockAutomationButton.style.display = "block";
-        luckyRingUpgradeCost *= 4;
+        luckyRingIterationNumber += 1;
+        luckyRingUpgradeCost = calculateLuckyRingCost(luckyRingIterationNumber);
         twoPercentDoubleShoesButton.innerHTML = "Upgrade Lucky Ring " + "(" + luckyRingUpgradeCost + " shoes)";
     }
 
@@ -142,7 +159,8 @@ function upgradeLuckyRing() {
         }, 1000);
     } else if (numOfShoes >= luckyRingUpgradeCost) {
         setNumOfShoes(numOfShoes - luckyRingUpgradeCost);
-        luckyRingUpgradeCost *= 4;
+        luckyRingIterationNumber += 1;
+        luckyRingUpgradeCost = calculateLuckyRingCost(luckyRingIterationNumber);
         luckyRingSpecialChance *= 2;
 
         if (luckyRingSpecialChance >= luckyRingUpgradeLimit) {
@@ -176,6 +194,7 @@ function buyAutomation() {
         }, 1000);
     } else if (numOfShoes >= unlockAutomationUpgradeCost) {
         setNumOfShoes(numOfShoes - unlockAutomationUpgradeCost);
+        unlockAutomationIterationNumber += 1;
         obtainedAutomation = true;
         unlockAutomationButton.style.display = "none";
         hireWorkerButton.style.display = "block";
@@ -196,10 +215,12 @@ function hireWorker() {
         }, 1000);
     } else if (numOfShoes >= hireWorkerCost) {
         setNumOfShoes(numOfShoes - hireWorkerCost);
+        workerIterationNumber += 1;
+        hireWorkerCost = calculateWorkerCost(workerIterationNumber);
         numOfWorkers += 1;
-        shoesPerSecond += 500;
+        shoesPerSecond += 20;
         shoesGainedAutomaticallyElement.innerHTML = shoesPerSecond;
-        hireWorkerButton.innerHTML = "[x" + numOfWorkers + "] " + "Hire Worker (5,000,000 shoes)";
+        hireWorkerButton.innerHTML = "[x" + numOfWorkers + "] " + "Hire Worker (" + hireWorkerCost + " shoes)";
     }
 
 }
@@ -287,14 +308,16 @@ function backToHome() {
     }
 
     if (obtainedAutomation == true) {
+        unlockAutomationButton.style.display = "none";
         hireWorkerButton.style.display = "block";
         buyFarmButton.style.display = "block";
         buyTentButton.style.display = "block";
         shoesGainedAutomaticallyLabel.style.display = "block";
         shoesGainedAutomaticallyElement.style.display = "block";
+    } else {
+        unlockAutomationButton.style.display = "block";
     }
 
-    unlockAutomationButton.style.display = "block";
     backToHomeButton.style.display = "none";
     inventoryButton.style.display = "block";
 
