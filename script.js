@@ -24,6 +24,7 @@ var shoesPerClickIterationNumber = 1;
 var luckyRingIterationNumber = 1;
 var unlockAutomationIterationNumber = 1;
 var workerIterationNumber = 1;
+var farmIterationNumber = 1;
 var shoesPerSecond = 0;
 var shoesPerClick = 1;
 var numOfShoes = 0;
@@ -38,7 +39,7 @@ var unlockAutomationUpgradeCost = 2000;
 var numOfWorkers = 0;
 var hireWorkerCost = 2775;
 var numOfFarms = 0;
-var buyFarmCost = 20000000;
+var buyFarmCost = 15770;
 var numOfTents = 0;
 var buyTentCost = 500000000;
 
@@ -76,6 +77,10 @@ function calculateLuckyRingCost(value) {
 
 function calculateWorkerCost(value) {
     return 2.5*(value**2)+162.5*value+2610;
+}
+
+function calculateFarmCost(value) {
+    return 2.5*(value**2)+392.5*value+15375;
 }
 
 function clickOnce() {
@@ -218,7 +223,7 @@ function hireWorker() {
         workerIterationNumber += 1;
         hireWorkerCost = calculateWorkerCost(workerIterationNumber);
         numOfWorkers += 1;
-        shoesPerSecond += 20;
+        shoesPerSecond += 10;
         shoesGainedAutomaticallyElement.innerHTML = shoesPerSecond;
         hireWorkerButton.innerHTML = "[x" + numOfWorkers + "] " + "Hire Worker (" + hireWorkerCost + " shoes)";
     }
@@ -235,7 +240,20 @@ increaseShoes();
 
 function buyFarm() {
 
-
+    if (numOfShoes < buyFarmCost) {
+        cannotAffordUpgradeAlert.style.display = "block";
+        setTimeout(() => {
+            cannotAffordUpgradeAlert.style.display = "none";
+        }, 1000);
+    } else if (numOfShoes >= buyFarmCost) {
+        setNumOfShoes(numOfShoes - buyFarmCost);
+        farmIterationNumber += 1;
+        buyFarmCost = calculateFarmCost(farmIterationNumber);
+        numOfFarms += 1;
+        shoesPerSecond += 50;
+        shoesGainedAutomaticallyElement.innerHTML = shoesPerSecond;
+        buyFarmButton.innerHTML = "[x" + numOfFarms + "] " + "Buy Farm (" + buyFarmCost + " shoes)"; 
+    }
 
 }
 
