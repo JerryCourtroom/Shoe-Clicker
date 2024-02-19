@@ -20,11 +20,14 @@ var backToHomeButton = document.getElementById("backToHome");
 var hireWorkerButton = document.getElementById("hireWorker");
 var buyFarmButton = document.getElementById("buyFarm");
 var buyTentButton = document.getElementById("buyTent");
+var buyShackButton = document.getElementById("buyShack");
 var shoesPerClickIterationNumber = 1;
 var luckyRingIterationNumber = 1;
 var unlockAutomationIterationNumber = 1;
 var workerIterationNumber = 1;
 var farmIterationNumber = 1;
+var tentIterationNumber = 1;
+var shackIterationNumber = 1;
 var shoesPerSecond = 0;
 var shoesPerClick = 1;
 var numOfShoes = 0;
@@ -41,7 +44,9 @@ var hireWorkerCost = 2775;
 var numOfFarms = 0;
 var buyFarmCost = 15770;
 var numOfTents = 0;
-var buyTentCost = 500000000;
+var buyTentCost = 127095;
+var numOfShacks = 0;
+var buyShackCost = 1000110;
 
 titleHeading.style.display = "block";
 inventoryHeading.style.display = "none";
@@ -62,6 +67,7 @@ unlockAutomationButton.style.display = "none";
 hireWorkerButton.style.display = "none";
 buyFarmButton.style.display = "none";
 buyTentButton.style.display = "none";
+buyShackButton.style.display = "none";
 backToHomeButton.style.display = "none";
 inventoryButton.style.display = "none";
 
@@ -81,6 +87,14 @@ function calculateWorkerCost(value) {
 
 function calculateFarmCost(value) {
     return 2.5*(value**2)+392.5*value+15375;
+}
+
+function calculateTentCost(value) {
+    return 2.5*(value**2)+1122.5*value+125970;
+}
+
+function calculateShackCost(value) {
+    return 2.5*(value**2)+3157.5*value+996950;
 }
 
 function clickOnce() {
@@ -211,6 +225,14 @@ function buyAutomation() {
 
 }
 
+function checkMilestones() {
+    
+    if (tentIterationNumber >= 16) {
+        
+    }
+
+}
+
 function hireWorker() {
 
     if (numOfShoes < hireWorkerCost) {
@@ -259,7 +281,20 @@ function buyFarm() {
 
 function buyTent() {
 
-
+    if (numOfShoes < buyTentCost) {
+        cannotAffordUpgradeAlert.style.display = "block";
+        setTimeout(() => {
+            cannotAffordUpgradeAlert.style.display = "none";
+        }, 1000);
+    } else if (numOfShoes >= buyTentCost) {
+        setNumOfShoes(numOfShoes - buyTentCost);
+        tentIterationNumber += 1;
+        buyTentCost = calculateTentCost(tentIterationNumber);
+        numOfTents += 1;
+        shoesPerSecond += 450;
+        shoesGainedAutomaticallyElement.innerHTML = shoesPerSecond;
+        buyTentButton.innerHTML = "[x" + numOfTents + "] " + "Buy Tent (" + buyTentCost + " shoes)";
+    }
 
 }
 
