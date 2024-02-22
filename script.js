@@ -13,6 +13,8 @@ var shoesPerClickUpgradeButton = document.getElementById("upgradeSpc");
 var doubleShoesAlert = document.getElementById("doubleShoesAlert");
 var luckyRingMaxUpgradeReachedAlert = document.getElementById("luckyRingMaxUpgradeReachedAlert");
 var cannotAffordUpgradeAlert = document.getElementById("cannotAffordUpgradeAlert");
+var workersObtainEmotionsAlert = document.getElementById("workersObtainEmotionsAlert");
+var workerStatus = document.getElementById("workerStatus");
 var twoPercentDoubleShoesButton = document.getElementById("twoPercentDoubleShoes");
 var unlockAutomationButton = document.getElementById("unlockAutomation");
 var inventoryButton = document.getElementById("inventory");
@@ -38,6 +40,7 @@ var luckyRingSpecialChance = 0.02;
 var luckyRingUpgradeLimit = 0.16;
 var obtainedLuckyRing = false;
 var obtainedAutomation = false;
+var obtainedStatus = false;
 var unlockAutomationUpgradeCost = 2000;
 var numOfWorkers = 0;
 var hireWorkerCost = 2775;
@@ -45,6 +48,7 @@ var numOfFarms = 0;
 var buyFarmCost = 15770;
 var numOfTents = 0;
 var buyTentCost = 127095;
+var obtainedShack = false;
 var numOfShacks = 0;
 var buyShackCost = 1000110;
 
@@ -62,6 +66,8 @@ shoesPerClickUpgradeButton.style.display = "block";
 doubleShoesAlert.style.display = "none";
 cannotAffordUpgradeAlert.style.display = "none";
 luckyRingMaxUpgradeReachedAlert.style.display = "none";
+workersObtainEmotionsAlert.style.display = "none";
+workerStatus.style.display = "none";
 twoPercentDoubleShoesButton.style.display = "block";
 unlockAutomationButton.style.display = "none";
 hireWorkerButton.style.display = "none";
@@ -190,7 +196,7 @@ function upgradeLuckyRing() {
             twoPercentDoubleShoesButton.style.display = "none";
         }
 
-        luckyRingInventoryText.innerHTML = "Lucky Ring [x1] | Grants a " + (luckyRingSpecialChance * 100) + "%" + " chance of obtaining double shoes";
+        luckyRingInventoryText.innerHTML = "[💍] Lucky Ring [x1] | Grants a " + (luckyRingSpecialChance * 100) + "%" + " chance of obtaining double shoes";
         twoPercentDoubleShoesButton.innerHTML = "Upgrade Lucky Ring " + "(" + luckyRingUpgradeCost + " shoes)";
     }
 
@@ -221,14 +227,6 @@ function buyAutomation() {
         buyTentButton.style.display = "block";
         shoesGainedAutomaticallyLabel.style.display = "block";
         shoesGainedAutomaticallyElement.style.display = "block";
-    }
-
-}
-
-function checkMilestones() {
-    
-    if (tentIterationNumber >= 16) {
-        
     }
 
 }
@@ -294,6 +292,64 @@ function buyTent() {
         shoesPerSecond += 450;
         shoesGainedAutomaticallyElement.innerHTML = shoesPerSecond;
         buyTentButton.innerHTML = "[x" + numOfTents + "] " + "Buy Tent (" + buyTentCost + " shoes)";
+        if (tentIterationNumber >= 16) {
+            buyShackButton.style.display = "block";
+        }
+    }
+
+}
+
+function checkForShack() {
+
+    if (obtainedShack == false) {
+        buyShackWithAlert();
+    } else {
+        buyShack();
+    }
+
+}
+
+function buyShackWithAlert() {
+
+    if (numOfShoes < buyShackCost) {
+        cannotAffordUpgradeAlert.style.display = "block";
+        setTimeout(() => {
+            cannotAffordUpgradeAlert.style.display = "none";
+        }, 1000);
+    } else if (numOfShoes >= buyShackCost) {
+        setNumOfShoes(numOfShoes - buyShackCost);
+        shackIterationNumber += 1;
+        buyShackCost = calculateShackCost(shackIterationNumber);
+        numOfShacks += 1;
+        shoesPerSecond += 1210;
+        shoesGainedAutomaticallyElement.innerHTML = shoesPerSecond;
+        buyShackButton.innerHTML = "[x" + numOfShacks + "] " + "Buy Shack (" + buyShackCost + " shoes)";
+        workersObtainEmotionsAlert.style.display = "block";
+        setTimeout(() => {
+            workersObtainEmotionsAlert.style.display = "none";
+        }, 5000);
+        workerStatus.style.display = "block";
+        obtainedStatus = true;
+        obtainedShack = true;
+    }
+
+}
+
+function buyShack() {
+
+    if (numOfShoes < buyShackCost) {
+        cannotAffordUpgradeAlert.style.display = "block";
+        setTimeout(() => {
+            cannotAffordUpgradeAlert.style.display = "none";
+        }, 1000);
+    } else if (numOfShoes >= buyShackCost) {
+        setNumOfShoes(numOfShoes - buyShackCost);
+        shackIterationNumber += 1;
+        buyShackCost = calculateShackCost(shackIterationNumber);
+        numOfShacks += 1;
+        shoesPerSecond += 1210;
+        shoesGainedAutomaticallyElement.innerHTML = shoesPerSecond;
+        buyShackButton.innerHTML = "[x" + numOfShacks + "] " + "Buy Shack (" + buyShackCost + " shoes)";
     }
 
 }
@@ -338,6 +394,12 @@ function inventoryOpen() {
         buyTentButton.style.display = "none";
         shoesGainedAutomaticallyLabel.style.display = "none";
         shoesGainedAutomaticallyElement.style.display = "none";
+        if (tentIterationNumber >= 16) {
+            buyShackButton.style.display = "none";
+            if (obtainedStatus == true) {
+                workerStatus.style.display = "none";
+            }
+        }
     }
 
 }
@@ -367,6 +429,12 @@ function backToHome() {
         buyTentButton.style.display = "block";
         shoesGainedAutomaticallyLabel.style.display = "block";
         shoesGainedAutomaticallyElement.style.display = "block";
+        if (tentIterationNumber >= 16) {
+            buyShackButton.style.display = "block";
+            if (obtainedStatus == true) {
+                workerStatus.style.display = "block";
+            }
+        }
     } else {
         unlockAutomationButton.style.display = "block";
     }
