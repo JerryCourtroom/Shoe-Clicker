@@ -14,7 +14,8 @@ var doubleShoesAlert = document.getElementById("doubleShoesAlert");
 var luckyRingMaxUpgradeReachedAlert = document.getElementById("luckyRingMaxUpgradeReachedAlert");
 var cannotAffordUpgradeAlert = document.getElementById("cannotAffordUpgradeAlert");
 var workersObtainEmotionsAlert = document.getElementById("workersObtainEmotionsAlert");
-var workerStatus = document.getElementById("workerStatus");
+var workerStatusLabel = document.getElementById("currentWorkerStatusLabel");
+var workerStatusElement = document.getElementById("currentWorkerStatus");
 var twoPercentDoubleShoesButton = document.getElementById("twoPercentDoubleShoes");
 var unlockAutomationButton = document.getElementById("unlockAutomation");
 var inventoryButton = document.getElementById("inventory");
@@ -51,6 +52,7 @@ var buyTentCost = 127095;
 var obtainedShack = false;
 var numOfShacks = 0;
 var buyShackCost = 1000110;
+var workerStatusNumber = 10;
 
 titleHeading.style.display = "block";
 inventoryHeading.style.display = "none";
@@ -67,7 +69,8 @@ doubleShoesAlert.style.display = "none";
 cannotAffordUpgradeAlert.style.display = "none";
 luckyRingMaxUpgradeReachedAlert.style.display = "none";
 workersObtainEmotionsAlert.style.display = "none";
-workerStatus.style.display = "none";
+workerStatusLabel.style.display = "none";
+workerStatusElement.style.display = "none";
 twoPercentDoubleShoesButton.style.display = "block";
 unlockAutomationButton.style.display = "none";
 hireWorkerButton.style.display = "none";
@@ -328,7 +331,8 @@ function buyShackWithAlert() {
         setTimeout(() => {
             workersObtainEmotionsAlert.style.display = "none";
         }, 5000);
-        workerStatus.style.display = "block";
+        workerStatusLabel.style.display = "block";
+        workerStatusElement.style.display = "block";
         obtainedStatus = true;
         obtainedShack = true;
     }
@@ -353,6 +357,14 @@ function buyShack() {
     }
 
 }
+
+setInterval(() => {
+
+    if (workerStatusNumber <= 0) {
+        tabTitle.innerHTML = "[💥] Strike!!! | Shoe Clicker";
+    }
+
+}, 500);
 
 function setNumOfShoes(value) {
 
@@ -397,11 +409,16 @@ function inventoryOpen() {
         if (tentIterationNumber >= 16) {
             buyShackButton.style.display = "none";
             if (obtainedStatus == true) {
-                workerStatus.style.display = "none";
+                workerStatusLabel.style.display = "none";
+                workerStatusElement.style.display = "none";
             }
         }
     }
 
+}
+
+function workerManagementPageOpen() {
+    
 }
 
 function backToHome() {
@@ -432,7 +449,8 @@ function backToHome() {
         if (tentIterationNumber >= 16) {
             buyShackButton.style.display = "block";
             if (obtainedStatus == true) {
-                workerStatus.style.display = "block";
+                workerStatusLabel.style.display = "block";
+                workerStatusElement.style.display = "block";
             }
         }
     } else {
