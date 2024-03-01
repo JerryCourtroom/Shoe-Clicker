@@ -1,6 +1,7 @@
 var tabTitle = document.getElementById("tabTitle");
 var titleHeading = document.getElementById("titleHeading");
 var inventoryHeading = document.getElementById("inventoryHeading");
+var workerPageHeading = document.getElementById("workerPageHeading");
 var shoeImage = document.getElementById("shoeImage");
 var shoesLabel = document.getElementById("shoesLabel");
 var numOfShoesElement = document.getElementById("numOfShoes");
@@ -16,10 +17,14 @@ var cannotAffordUpgradeAlert = document.getElementById("cannotAffordUpgradeAlert
 var workersObtainEmotionsAlert = document.getElementById("workersObtainEmotionsAlert");
 var workerStatusLabel = document.getElementById("currentWorkerStatusLabel");
 var workerStatusElement = document.getElementById("currentWorkerStatus");
+var asciiFarm = document.getElementById("asciiFarm");
+var asciiTent = document.getElementById("asciiTent");
 var twoPercentDoubleShoesButton = document.getElementById("twoPercentDoubleShoes");
 var unlockAutomationButton = document.getElementById("unlockAutomation");
 var inventoryButton = document.getElementById("inventory");
-
+var manageWorkersButton = document.getElementById("manageWorkers");
+var appointWorkersToFarmButton = document.getElementById("appointWorkersToFarm");
+var appointWorkersToTentButton = document.getElementById("appointWorkersToTent");
 var backToHomeButton = document.getElementById("backToHome");
 var hireWorkerButton = document.getElementById("hireWorker");
 var buyFarmButton = document.getElementById("buyFarm");
@@ -72,6 +77,9 @@ luckyRingMaxUpgradeReachedAlert.style.display = "none";
 workersObtainEmotionsAlert.style.display = "none";
 workerStatusLabel.style.display = "none";
 workerStatusElement.style.display = "none";
+workerPageHeading.style.display = "none";
+appointWorkersToFarmButton.style.display = "none";
+appointWorkersToTentButton.style.display = "none";
 twoPercentDoubleShoesButton.style.display = "block";
 unlockAutomationButton.style.display = "none";
 hireWorkerButton.style.display = "none";
@@ -80,6 +88,7 @@ buyTentButton.style.display = "none";
 buyShackButton.style.display = "none";
 backToHomeButton.style.display = "none";
 inventoryButton.style.display = "none";
+manageWorkersButton.style.display = "none";
 
 setNumOfShoes(0);
 
