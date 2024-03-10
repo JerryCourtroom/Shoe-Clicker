@@ -1,7 +1,3 @@
-#inventory {
-    float: right;
-}
-
-#manageWorkers {
+#inventory, #manageWorkers {
     float: right;
 }
