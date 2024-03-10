@@ -394,6 +394,10 @@ setInterval(() => {
 
 }, 500);
 
+function appointWorkersToFarm() {
+    
+}
+
 function setNumOfShoes(value) {
 
     if (isInventoryOpen == false && isWorkerPageOpen  == false) {
