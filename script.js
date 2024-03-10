@@ -390,8 +390,7 @@ setInterval(() => {
     if (workerStatusNumber <= 0) {
         tabTitle.innerHTML = "[💥] Strike!!! | Shoe Clicker";
     }
-
-    
+    totalNumOfWorkersElement.innerHTML = (workerIterationNumber - 1);
 
 }, 500);
 
