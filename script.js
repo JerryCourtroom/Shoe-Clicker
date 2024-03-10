@@ -1,3 +1,5 @@
+//IMPORTANT: If something doesn't fit in your code, use a setInterval(). Most games use loops (ex. Minecraft's code is all in ONE setInterval()).
+
 var tabTitle = document.getElementById("tabTitle");
 var titleHeading = document.getElementById("titleHeading");
 var inventoryHeading = document.getElementById("inventoryHeading");
@@ -388,6 +390,8 @@ setInterval(() => {
     if (workerStatusNumber <= 0) {
         tabTitle.innerHTML = "[💥] Strike!!! | Shoe Clicker";
     }
+
+    
 
 }, 500);
 
