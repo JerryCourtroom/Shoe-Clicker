@@ -19,6 +19,12 @@ var cannotAffordUpgradeAlert = document.getElementById("cannotAffordUpgradeAlert
 var workersObtainEmotionsAlert = document.getElementById("workersObtainEmotionsAlert");
 var workerStatusLabel = document.getElementById("currentWorkerStatusLabel");
 var workerStatusElement = document.getElementById("currentWorkerStatus");
+var numOfWorkersAtFarmLabel = document.getElementById("numOfWorkersAtFarmLabel");
+var numOfWorkersAtFarmElement = document.getElementById("numOfWorkersAtFarm");
+var numOfWorkersAtTentLabel = document.getElementById("numOfWorkersAtTentLabel");
+var numOfWorkersAtTentElement = document.getElementById("numOfWorkersAtTent");
+var numOfWorkersAtShackLabel = document.getElementById("numOfWorkersAtShackLabel");
+var numOfWorkersAtShackElement = document.getElementById("numOfWorkersAtShack");
 var asciiFarm = document.getElementById("asciiFarm");
 var asciiTent = document.getElementById("asciiTent");
 var asciiShack = document.getElementById("asciiShack");
@@ -68,6 +74,9 @@ var obtainedShack = false;
 var numOfShacks = 0;
 var buyShackCost = 1000110;
 var workerStatusNumber = 10;
+var numOfFarmWorkers = 0;
+var numOfTentWorkers = 0;
+var numOfShackWorkers = 0;
 
 titleHeading.style.display = "block";
 inventoryHeading.style.display = "none";
@@ -102,6 +111,12 @@ inventoryButton.style.display = "none";
 manageWorkersButton.style.display = "none";
 totalNumOfWorkersElement.style.display = "none";
 totalNumOfWorkersLabel.style.display = "none";
+numOfWorkersAtFarmLabel.style.display = "none";
+numOfWorkersAtFarmElement.style.display = "none";
+numOfWorkersAtTentLabel.style.display = "none";
+numOfWorkersAtTentElement.style.display = "none";
+numOfWorkersAtShackLabel.style.display = "none";
+numOfWorkersAtShackElement.style.display = "none";
 asciiFarm.style.display = "none";
 asciiTent.style.display = "none";
 asciiShack.style.display = "none";
@@ -398,6 +413,14 @@ function appointWorkersToFarm() {
     
 }
 
+function appointWorkersToTent() {
+
+}
+
+function appointWorkersToShack() {
+
+}
+
 function setNumOfShoes(value) {
 
     if (isInventoryOpen == false && isWorkerPageOpen  == false) {
@@ -468,6 +491,12 @@ function workerManagementPageOpen() {
     workerPageHeading.style.display = "block";
     totalNumOfWorkersElement.style.display = "block";
     totalNumOfWorkersLabel.style.display = "block";
+    numOfWorkersAtFarmElement.style.display = "block";
+    numOfWorkersAtFarmLabel.style.display = "block";
+    numOfWorkersAtShackElement.style.display = "block";
+    numOfWorkersAtShackLabel.style.display = "block";
+    numOfWorkersAtTentElement.style.display = "block";
+    numOfWorkersAtTentLabel.style.display = "block";
     asciiFarm.style.display = "block";
     asciiTent.style.display = "block";
     asciiShack.style.display = "block";
@@ -517,6 +546,12 @@ function backToHome() {
     workerPageHeading.style.display = "none";
     totalNumOfWorkersElement.style.display = "none";
     totalNumOfWorkersLabel.style.display = "none";
+    numOfWorkersAtFarmElement.style.display = "none";
+    numOfWorkersAtFarmLabel.style.display = "none";
+    numOfWorkersAtShackElement.style.display = "none";
+    numOfWorkersAtShackLabel.style.display = "none";
+    numOfWorkersAtTentElement.style.display = "none";
+    numOfWorkersAtTentLabel.style.display = "none";
     asciiFarm.style.display = "none";
     asciiTent.style.display = "none";
     asciiShack.style.display = "none";
