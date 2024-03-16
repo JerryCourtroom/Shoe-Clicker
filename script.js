@@ -74,9 +74,6 @@ var obtainedShack = false;
 var numOfShacks = 0;
 var buyShackCost = 1000110;
 var workerStatusNumber = 10;
-var numOfFarmWorkers = 0;
-var numOfTentWorkers = 0;
-var numOfShackWorkers = 0;
 
 titleHeading.style.display = "block";
 inventoryHeading.style.display = "none";
@@ -410,7 +407,10 @@ setInterval(() => {
 }, 500);
 
 function appointWorkersToFarm() {
-    
+
+  workerIterationNumber -= 1;
+  numOfWorkersAtFarmElement.innerHTML += 1;
+  
 }
 
 function appointWorkersToTent() {
