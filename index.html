@@ -21,6 +21,8 @@
     <h1 id = "workerPageHeading">Worker Management</h1>
     <p id = "totalNumOfWorkersLabel">Total Number of Workers:</p> 
     <p id = "totalNumOfWorkers"></p>
+    <p id = "outOfWorkersAlert">[❌] You're out of workers!</p>
+    <p id = "cannotExcuseWorkersAlert">[❌] You can't excuse any more workers from that building!</p>
     <pre id = "asciiFarm">
         / ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' '/
        / -  P---| =  - =  - - - = - -- -/
@@ -28,9 +30,17 @@
      / --- ======== -- o ==--- --= o -/
     /''''''''''''''''''''''''''''''''/
     </pre>
+    <pre id = "asciiFarmOpen">
+        / ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' '/
+       /     New    ( )     Worker!     /
+      /    *#^^)____/|\____(^^#*       /
+     /              / \               /
+    /''''''''''''''''''''''''''''''''/
+    </pre>
     <p id = "numOfWorkersAtFarmLabel">Number of Workers at Farm:</p>
     <p id = "numOfWorkersAtFarm"></p>
     <button id = "appointWorkersToFarm" onclick = "appointWorkersToFarm()">Appoint to Farm</button>
+    <button id = "excuseWorkersFromFarm" onclick = "excuseWorkersFromFarm()">Excuse Worker from Farm</button>
     <pre id = "asciiTent">
         / = [<||||||||||||||||||>] = \
         [0]------------------------[0]
@@ -40,9 +50,19 @@
         |_______|           |________|
         |_______|           |________|
     </pre>
+    <pre id = "asciiTentOpen">
+        / = [<||||||||||||||||||>] = \
+        [0]------------------------[0]
+        {========/|||||||||\=========}
+        ///______|||||||||||\\\\\\\\\\
+    >>>>>>/+=====+\____     |________|
+    >>>>>/_____________\    |________|
+    >>>>>__()___|  ()       |________|
+    </pre>
     <p id = "numOfWorkersAtTentLabel">Number of Workers at Tent:</p>
     <p id = "numOfWorkersAtTent"></p>
     <button id = "appointWorkersToTent" onclick = "appointWorkersToTent()">Appoint to Tent</button>
+    <button id = "excuseWorkersFromTent" onclick = "excuseWorkersFromTent()">Excuse Worker from Tent</button>
     <pre id = "asciiShack">
          ______________________________
         /______________________________\
@@ -50,10 +70,17 @@
       /______/       |  () |     \_______\
      /______/        |     |      \_______\
     </pre>
+    <pre id = "asciiShackOpen">
+         ______________________________
+        /______________________________\
+    >>>>>>>/+=====+\____   ]    \_______\
+    >>>>>>/_____________\) |     \_______\
+    >>>>>>>>()      ()     |      \_______\
+    </pre>
     <p id = "numOfWorkersAtShackLabel">Number of Workers at Shack:</p>
     <p id = "numOfWorkersAtShack"></p>
     <button id = "appointWorkersToShack" onclick = "appointWorkersToShack()">Appoint to Shack</button>
-    <button id = "excuseWorker" onclick = "excuseWorker()">Excuse 1 Worker (this will make a worker rest)</button>
+    <button id = "excuseWorkersFromShack" onclick = "excuseWorkersFromShack()">Excuse Worker from Shack</button>
     <button id = "backToHome" onclick = "backToHome()">Back to Home</button>
     <button id = "upgradeSpc" onclick = "upgradeSpc()">Upgrade Shoes per Click (20 shoes)</button>
     <p id = "doubleShoesAlert">[🍀] Lucky Ring Activated (Double Shoes!)</p>
