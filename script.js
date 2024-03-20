@@ -71,9 +71,7 @@ var obtainedAutomation = false;
 var obtainedStatus = false;
 var isInventoryOpen = false;
 var isWorkerPageOpen = false;
-var isAsciiFarmOpen = false;
-var isAsciiTentOpen = false;
-var isAsciiShackOpen = false;
+var isHomePageOpen = true;
 var unlockAutomationUpgradeCost = 2000;
 var numOfWorkers = 0;
 var hireWorkerCost = 2775;
@@ -438,11 +436,9 @@ function appointWorkersToFarm() {
             outOfWorkersAlert.style.display = "none";
         }, 1000);
     } else {
-        isAsciiFarmOpen = true;
         asciiFarmOpen.style.display = "block";
         asciiFarm.style.display = "none";
         setTimeout(() => {
-            isAsciiFarmOpen = false;
             asciiFarmOpen.style.display = "none";
             asciiFarm.style.display = "block";
         }, 1000);
@@ -461,11 +457,9 @@ function appointWorkersToTent() {
             outOfWorkersAlert.style.display = "none";
         }, 1000);
     } else {
-        isAsciiTentOpen = true;
         asciiTentOpen.style.display = "block";
         asciiTent.style.display = "none";
         setTimeout(() => {
-            isAsciiTentOpen = false;
             asciiTentOpen.style.display = "none";
             asciiTent.style.display = "block";
         }, 1000);
@@ -484,11 +478,9 @@ function appointWorkersToShack() {
             outOfWorkersAlert.style.display = "none";
         }, 1000);
     } else {
-        isAsciiShackOpen = true;
         asciiShackOpen.style.display = "block";
         asciiShack.style.display = "none";
         setTimeout(() => {
-            isAsciiShackOpen = false;
             asciiShackOpen.style.display = "none";
             asciiShack.style.display = "block";
         }, 1000);
