@@ -1,5 +1,6 @@
 //IMPORTANT: If something doesn't fit in your code, use a setInterval(). Most games use loops (ex. Minecraft's code is all in ONE setInterval()).
 //IMPORTANT: NEVER combine a ".innerHTML" with a number on the right side of assigning a variable. You can treat numbers as strings, but never strings as numbers.
+//IMPORTANT: localStorage does NOT need to store elements because they are already in HTML file.
 
 var tabTitle = document.getElementById("tabTitle");
 var titleHeading = document.getElementById("titleHeading");
@@ -71,7 +72,6 @@ var obtainedAutomation = false;
 var obtainedStatus = false;
 var isInventoryOpen = false;
 var isWorkerPageOpen = false;
-var isHomePageOpen = true;
 var unlockAutomationUpgradeCost = 2000;
 var numOfWorkers = 0;
 var hireWorkerCost = 2775;
@@ -83,7 +83,7 @@ var obtainedShack = false;
 var numOfShacks = 0;
 var buyShackCost = 1000110;
 var workerStatusNumber = 10;
-var totalNumOfWorkers = 0;
+var totalNumOfWorkersRemaining = 0;
 var numOfWorkersAtFarm = 0;
 var numOfWorkersAtTent = 0;
 var numOfWorkersAtShack = 0;
@@ -304,6 +304,7 @@ function hireWorker() {
         workerIterationNumber += 1;
         hireWorkerCost = calculateWorkerCost(workerIterationNumber);
         numOfWorkers += 1;
+        totalNumOfWorkersRemaining += 1;
         shoesPerSecond += 10;
         shoesGainedAutomaticallyElement.innerHTML = shoesPerSecond;
         hireWorkerButton.innerHTML = "[x" + numOfWorkers + "] " + "Hire Worker (" + hireWorkerCost + " shoes)";
@@ -423,14 +424,15 @@ setInterval(() => {
         tabTitle.innerHTML = "[💥] Strike!!! | Shoe Clicker";
     }
 
-    totalNumOfWorkers = (workerIterationNumber - 1);
-    totalNumOfWorkersElement.innerHTML = totalNumOfWorkers;
+    totalNumOfWorkersElement.innerHTML = totalNumOfWorkersRemaining;
 
 }, 500);
 
+
+
 function appointWorkersToFarm() {
 
-    if (totalNumOfWorkers <= 0) {
+    if (totalNumOfWorkersRemaining <= 0) {
         outOfWorkersAlert.style.display = "block";
         setTimeout(() => {
             outOfWorkersAlert.style.display = "none";
@@ -439,10 +441,15 @@ function appointWorkersToFarm() {
         asciiFarmOpen.style.display = "block";
         asciiFarm.style.display = "none";
         setTimeout(() => {
-            asciiFarmOpen.style.display = "none";
-            asciiFarm.style.display = "block";
+            if (isWorkerPageOpen == true) {
+                asciiFarmOpen.style.display = "none";
+                asciiFarm.style.display = "block";
+            } else {
+                asciiFarmOpen.style.display = "none";
+                asciiFarm.style.display = "none";
+            }
         }, 1000);
-        workerIterationNumber -= 1;
+        totalNumOfWorkersRemaining -= 1;
         numOfWorkersAtFarm += 1;
         numOfWorkersAtFarmElement.innerHTML = numOfWorkersAtFarm;
     }
@@ -451,7 +458,7 @@ function appointWorkersToFarm() {
 
 function appointWorkersToTent() {
 
-    if (totalNumOfWorkers <= 0) {
+    if (totalNumOfWorkersRemaining <= 0) {
         outOfWorkersAlert.style.display = "block";
         setTimeout(() => {
             outOfWorkersAlert.style.display = "none";
@@ -460,10 +467,15 @@ function appointWorkersToTent() {
         asciiTentOpen.style.display = "block";
         asciiTent.style.display = "none";
         setTimeout(() => {
-            asciiTentOpen.style.display = "none";
-            asciiTent.style.display = "block";
+            if (isWorkerPageOpen == true) {
+                asciiTentOpen.style.display = "none";
+                asciiTent.style.display = "block";
+            } else {
+                asciiTentOpen.style.display = "none";
+                asciiTent.style.display = "none";
+            }
         }, 1000);
-        workerIterationNumber -= 1;
+        totalNumOfWorkersRemaining -= 1;
         numOfWorkersAtTent += 1;
         numOfWorkersAtTentElement.innerHTML = numOfWorkersAtTent;
     }
@@ -472,7 +484,7 @@ function appointWorkersToTent() {
 
 function appointWorkersToShack() {
 
-    if (totalNumOfWorkers <= 0) {
+    if (totalNumOfWorkersRemaining <= 0) {
         outOfWorkersAlert.style.display = "block";
         setTimeout(() => {
             outOfWorkersAlert.style.display = "none";
@@ -481,10 +493,15 @@ function appointWorkersToShack() {
         asciiShackOpen.style.display = "block";
         asciiShack.style.display = "none";
         setTimeout(() => {
-            asciiShackOpen.style.display = "none";
-            asciiShack.style.display = "block";
+            if (isWorkerPageOpen == true) {
+                asciiShackOpen.style.display = "none";
+                asciiShack.style.display = "block";
+            } else {
+                asciiShackOpen.style.display = "none";
+                asciiShack.style.display = "none";
+            }
         }, 1000);
-        workerIterationNumber -= 1;
+        totalNumOfWorkersRemaining -= 1;
         numOfWorkersAtShack += 1;
         numOfWorkersAtShackElement.innerHTML = numOfWorkersAtShack;
     }
@@ -499,8 +516,8 @@ function excuseWorkersFromFarm() {
             cannotExcuseWorkersAlert.style.display = "none";
         }, 1000);
     } else {
-        workerIterationNumber += 1;
-        numOfWorkersAtFarm -= 1;
+        totalNumOfWorkersRemaining += 1;
+        numOfWorkersAtFarm -= 1;isWorkerPageOpen
         numOfWorkersAtFarmElement.innerHTML = numOfWorkersAtFarm;
     }
 
@@ -514,7 +531,7 @@ function excuseWorkersFromTent() {
             cannotExcuseWorkersAlert.style.display = "none";
         }, 1000);
     } else {
-        workerIterationNumber += 1;
+        totalNumOfWorkersRemaining += 1;
         numOfWorkersAtTent -= 1;
         numOfWorkersAtTentElement.innerHTML = numOfWorkersAtTent;
     }
@@ -529,7 +546,7 @@ function excuseWorkersFromShack() {
             cannotExcuseWorkersAlert.style.display = "none";
         }, 1000);
     } else {
-        workerIterationNumber += 1;
+        totalNumOfWorkersRemaining += 1;
         numOfWorkersAtShack -= 1;
         numOfWorkersAtShackElement.innerHTML = numOfWorkersAtShack;
     }
