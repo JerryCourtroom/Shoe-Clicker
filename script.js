@@ -428,7 +428,14 @@ setInterval(() => {
 
 }, 500);
 
+requestAnimationFrame(save);
 
+function save() {
+
+    localStorage.setItem("numOfShoes", numOfShoes);
+    requestAnimationFrame(save);
+    
+}
 
 function appointWorkersToFarm() {
 
