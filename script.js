@@ -1,6 +1,7 @@
 //IMPORTANT: If something doesn't fit in your code, use a setInterval(). Most games use loops (ex. Minecraft's code is all in ONE setInterval()).
 //IMPORTANT: NEVER combine a ".innerHTML" with a number on the right side of assigning a variable. You can treat numbers as strings, but never strings as numbers.
 //IMPORTANT: localStorage does NOT need to store elements because they are already in HTML file.
+//IMPORTANT: requestAnimationFrame() should be understood as based off of setTimeout(), except it calls a function right when the browser is ready. It only calls ONCE.
 
 var tabTitle = document.getElementById("tabTitle");
 var titleHeading = document.getElementById("titleHeading");
@@ -63,7 +64,6 @@ var shoesPerSecond = 0;
 var shoesPerClick = 1;
 var numOfShoes = 0;
 var shoesPerClickUpgradeCost = 20;
-var shoesPerClickUpgradeCostIncrease = 1500;
 var luckyRingUpgradeCost = 150;
 var luckyRingSpecialChance = 0.02;
 var luckyRingUpgradeLimit = 0.16;
@@ -428,13 +428,33 @@ setInterval(() => {
 
 }, 500);
 
-requestAnimationFrame(save);
-
-function save() {
+//Loops saveGame
+function saveGame() {
 
     localStorage.setItem("numOfShoes", numOfShoes);
-    requestAnimationFrame(save);
-    
+    localStorage.setItem("shoesPerClick", shoesPerClick);
+    localStorage.setItem("shoesPerClickIterationNumber", shoesPerClickIterationNumber);
+    //Add more variables!
+    requestAnimationFrame(saveGame);
+
+}
+
+function importGame() {
+
+    setNumOfShoes(Number(localStorage.getItem("numOfShoes")));
+    setShoesPerClick(Number(localStorage.getItem("shoesPerClick")));
+    shoesPerClickIterationNumber = Number(localStorage.getItem("shoesPerClickIterationNumber"));
+
+}
+
+if (Number.isNaN(Number(localStorage.getItem("numOfShoes")))) {
+    //save, then import
+    saveGame();
+    importGame();
+} else {
+    //import, then save
+    importGame();
+    saveGame();
 }
 
 function appointWorkersToFarm() {
@@ -524,7 +544,7 @@ function excuseWorkersFromFarm() {
         }, 1000);
     } else {
         totalNumOfWorkersRemaining += 1;
-        numOfWorkersAtFarm -= 1;isWorkerPageOpen
+        numOfWorkersAtFarm -= 1;
         numOfWorkersAtFarmElement.innerHTML = numOfWorkersAtFarm;
     }
 
