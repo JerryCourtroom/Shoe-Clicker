@@ -445,16 +445,17 @@ function importGame() {
     setNumOfShoes(Number(localStorage.getItem("numOfShoes")));
     setShoesPerClick(Number(localStorage.getItem("shoesPerClick")));
     shoesPerClickIterationNumber = Number(localStorage.getItem("shoesPerClickIterationNumber"));
-    shoesPerClickUpgradeCost = Number(localStorage.getItem("shoesPerClickUpgradeCost"));
+    shoesPerClickUpgradeCost = calculateShoesPerClickCost(Number(localStorage.getItem("shoesPerClickIterationNumber")));
 
 }
 
-if (Number.isNaN(Number(localStorage.getItem("numOfShoes")))) {
+if (localStorage.getItem("numOfShoes") == null) {
     //save, then import
     saveGame();
     importGame();
 } else {
     //import, then save
+    console.log("Hello World!");
     importGame();
     saveGame();
 }
