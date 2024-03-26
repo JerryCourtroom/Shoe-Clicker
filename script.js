@@ -435,6 +435,7 @@ function saveGame() {
     localStorage.setItem("shoesPerClick", shoesPerClick);
     localStorage.setItem("shoesPerClickIterationNumber", shoesPerClickIterationNumber);
     localStorage.setItem("shoesPerClickUpgradeCost", shoesPerClickUpgradeCost);
+    shoesPerClickUpgradeButton.innerHTML = "Upgrade Shoes per Click (" + shoesPerClickUpgradeCost + " shoes)";
     //Add more variables!
     requestAnimationFrame(saveGame);
 
