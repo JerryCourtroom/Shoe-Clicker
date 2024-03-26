@@ -434,6 +434,7 @@ function saveGame() {
     localStorage.setItem("numOfShoes", numOfShoes);
     localStorage.setItem("shoesPerClick", shoesPerClick);
     localStorage.setItem("shoesPerClickIterationNumber", shoesPerClickIterationNumber);
+    localStorage.setItem("shoesPerClickUpgradeCost", shoesPerClickUpgradeCost);
     //Add more variables!
     requestAnimationFrame(saveGame);
 
@@ -444,6 +445,7 @@ function importGame() {
     setNumOfShoes(Number(localStorage.getItem("numOfShoes")));
     setShoesPerClick(Number(localStorage.getItem("shoesPerClick")));
     shoesPerClickIterationNumber = Number(localStorage.getItem("shoesPerClickIterationNumber"));
+    shoesPerClickUpgradeCost = Number(localStorage.getItem("shoesPerClickUpgradeCost"));
 
 }
 
