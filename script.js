@@ -435,7 +435,12 @@ function saveGame() {
     localStorage.setItem("shoesPerClick", shoesPerClick);
     localStorage.setItem("shoesPerClickIterationNumber", shoesPerClickIterationNumber);
     localStorage.setItem("shoesPerClickUpgradeCost", shoesPerClickUpgradeCost);
-    shoesPerClickUpgradeButton.innerHTML = "Upgrade Shoes per Click (" + shoesPerClickUpgradeCost + " shoes)";
+    localStorage.setItem("luckyRingUpgradeCost", luckyRingUpgradeCost);
+    localStorage.setItem("luckyRingIterationNumber", luckyRingIterationNumber);
+    localStorage.setItem("luckyRingSpecialChance", luckyRingSpecialChance);
+    localStorage.setItem("obtainedLuckyRing", obtainedLuckyRing);
+
+
     //Add more variables!
     requestAnimationFrame(saveGame);
 
@@ -447,6 +452,19 @@ function importGame() {
     setShoesPerClick(Number(localStorage.getItem("shoesPerClick")));
     shoesPerClickIterationNumber = Number(localStorage.getItem("shoesPerClickIterationNumber"));
     shoesPerClickUpgradeCost = calculateShoesPerClickCost(Number(localStorage.getItem("shoesPerClickIterationNumber")));
+    shoesPerClickUpgradeButton.innerHTML = "Upgrade Shoes per Click (" + shoesPerClickUpgradeCost + " shoes)";
+    luckyRingIterationNumber = Number(localStorage.getItem("luckyRingIterationNumber"));
+    luckyRingUpgradeCost = calculateLuckyRingCost(Number(localStorage.getItem("luckyRingIterationNumber")));
+    if (obtainedLuckyRing == true) {
+        twoPercentDoubleShoesButton.innerHTML = "Upgrade Lucky Ring (" + luckyRingUpgradeCost + " shoes)";
+    } else {
+        twoPercentDoubleShoesButton.innerHTML = "Purchase Lucky Ring (" + luckyRingUpgradeCost + " shoes)";
+    }
+    luckyRingSpecialChance = Number(localStorage.getItem("luckyRingSpecialChance"));
+    obtainedLuckyRing = Boolean(localStorage.getItem("obtainedLuckyRing"));
+    if (obtainedLuckyRing == true) {
+        inventoryButton.style.display = "block";
+    }
 
 }
 
@@ -456,7 +474,6 @@ if (localStorage.getItem("numOfShoes") == null) {
     importGame();
 } else {
     //import, then save
-    console.log("Hello World!");
     importGame();
     saveGame();
 }
