@@ -430,7 +430,7 @@ setInterval(() => {
 
 //Loops saveGame
 function saveGame() {
-
+    //this function is always running!
     localStorage.setItem("numOfShoes", numOfShoes);
     localStorage.setItem("shoesPerClick", shoesPerClick);
     localStorage.setItem("shoesPerClickIterationNumber", shoesPerClickIterationNumber);
@@ -461,7 +461,7 @@ function importGame() {
         twoPercentDoubleShoesButton.innerHTML = "Purchase Lucky Ring (" + luckyRingUpgradeCost + " shoes)";
     }
     luckyRingSpecialChance = Number(localStorage.getItem("luckyRingSpecialChance"));
-    obtainedLuckyRing = Boolean(localStorage.getItem("obtainedLuckyRing"));
+    obtainedLuckyRing = (localStorage.getItem("obtainedLuckyRing") === "true");
     if (obtainedLuckyRing == true) {
         inventoryButton.style.display = "block";
     }
