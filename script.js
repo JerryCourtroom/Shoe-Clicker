@@ -439,7 +439,7 @@ function saveGame() {
     localStorage.setItem("luckyRingIterationNumber", luckyRingIterationNumber);
     localStorage.setItem("luckyRingSpecialChance", luckyRingSpecialChance);
     localStorage.setItem("obtainedLuckyRing", obtainedLuckyRing);
-
+    localStorage.setItem("luckyRingUpgradeLimit", luckyRingUpgradeLimit);
 
     //Add more variables!
     requestAnimationFrame(saveGame);
@@ -455,15 +455,22 @@ function importGame() {
     shoesPerClickUpgradeButton.innerHTML = "Upgrade Shoes per Click (" + shoesPerClickUpgradeCost + " shoes)";
     luckyRingIterationNumber = Number(localStorage.getItem("luckyRingIterationNumber"));
     luckyRingUpgradeCost = calculateLuckyRingCost(Number(localStorage.getItem("luckyRingIterationNumber")));
+    obtainedLuckyRing = (localStorage.getItem("obtainedLuckyRing") === "true");
     if (obtainedLuckyRing == true) {
         twoPercentDoubleShoesButton.innerHTML = "Upgrade Lucky Ring (" + luckyRingUpgradeCost + " shoes)";
     } else {
         twoPercentDoubleShoesButton.innerHTML = "Purchase Lucky Ring (" + luckyRingUpgradeCost + " shoes)";
     }
     luckyRingSpecialChance = Number(localStorage.getItem("luckyRingSpecialChance"));
-    obtainedLuckyRing = (localStorage.getItem("obtainedLuckyRing") === "true");
+    luckyRingInventoryText.innerHTML = "[💍] Lucky Ring [x1] | Grants a " + (luckyRingSpecialChance * 100) + "%" + " chance of obtaining double shoes";
     if (obtainedLuckyRing == true) {
         inventoryButton.style.display = "block";
+    }
+    luckyRingUpgradeLimit = Number(localStorage.getItem("luckyRingUpgradeLimit"));
+    if (luckyRingSpecialChance >= luckyRingUpgradeLimit) {
+        twoPercentDoubleShoesButton.style.display = "none";
+    } else {
+        twoPercentDoubleShoesButton.style.display = "block";
     }
 
 }
