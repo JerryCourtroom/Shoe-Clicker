@@ -440,6 +440,15 @@ function saveGame() {
     localStorage.setItem("luckyRingSpecialChance", luckyRingSpecialChance);
     localStorage.setItem("obtainedLuckyRing", obtainedLuckyRing);
     localStorage.setItem("luckyRingUpgradeLimit", luckyRingUpgradeLimit);
+    localStorage.setItem("isInventoryOpen", isInventoryOpen);
+    localStorage.setItem("unlockAutomationIterationNumber", unlockAutomationIterationNumber);
+    localStorage.setItem("obtainedAutomation", obtainedAutomation);
+    localStorage.setItem("unlockAutomationUpgradeCost", unlockAutomationUpgradeCost);
+    localStorage.setItem("shoesPerSecond", shoesPerSecond);
+    localStorage.setItem("workerIterationNumber", workerIterationNumber);
+    localStorage.setItem("numOfWorkers", numOfWorkers);
+    localStorage.setItem("hireWorkerCost", hireWorkerCost);
+
 
     //Add more variables!
     requestAnimationFrame(saveGame);
@@ -456,8 +465,11 @@ function importGame() {
     luckyRingIterationNumber = Number(localStorage.getItem("luckyRingIterationNumber"));
     luckyRingUpgradeCost = calculateLuckyRingCost(Number(localStorage.getItem("luckyRingIterationNumber")));
     obtainedLuckyRing = (localStorage.getItem("obtainedLuckyRing") === "true");
+    unlockAutomationUpgradeCost = Number(localStorage.getItem("unlockAutomationUpgradeCost"));
+    unlockAutomationButton.innerHTML = "Unlock Automation (" + unlockAutomationUpgradeCost + " shoes)";
     if (obtainedLuckyRing == true) {
         twoPercentDoubleShoesButton.innerHTML = "Upgrade Lucky Ring (" + luckyRingUpgradeCost + " shoes)";
+        unlockAutomationButton.style.display = "block";
     } else {
         twoPercentDoubleShoesButton.innerHTML = "Purchase Lucky Ring (" + luckyRingUpgradeCost + " shoes)";
     }
@@ -472,6 +484,12 @@ function importGame() {
     } else {
         twoPercentDoubleShoesButton.style.display = "block";
     }
+    unlockAutomationIterationNumber = Number(localStorage.getItem("unlockAutomationIterationNumber"));
+    obtainedAutomation = (localStorage.getItem("obtainedAutomation") === "true");
+    if (obtainedAutomation == true) {
+        unlockAutomationButton.style.display = "none";
+    }
+
 
 }
 
