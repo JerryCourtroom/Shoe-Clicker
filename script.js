@@ -448,7 +448,23 @@ function saveGame() {
     localStorage.setItem("workerIterationNumber", workerIterationNumber);
     localStorage.setItem("numOfWorkers", numOfWorkers);
     localStorage.setItem("hireWorkerCost", hireWorkerCost);
-
+    localStorage.setItem("farmIterationNumber", farmIterationNumber);
+    localStorage.setItem("numOfFarms", numOfFarms);
+    localStorage.setItem("buyFarmCost", buyFarmCost);
+    localStorage.setItem("tentIterationNumber", tentIterationNumber);
+    localStorage.setItem("numOfTents", numOfTents);
+    localStorage.setItem("buyTentCost", buyTentCost);
+    localStorage.setItem("obtainedShack", obtainedShack);
+    localStorage.setItem("shackIterationNumber", shackIterationNumber);
+    localStorage.setItem("numOfShacks", numOfShacks);
+    localStorage.setItem("buyShackCost", buyShackCost);
+    localStorage.setItem("obtainedStatus", obtainedStatus);
+    localStorage.setItem("workerStatusNumber", workerStatusNumber);
+    localStorage.setItem("isWorkerPageOpen", isWorkerPageOpen);
+    localStorage.setItem("totalNumOfWorkersRemaining", totalNumOfWorkersRemaining);
+    localStorage.setItem("numOfWorkersAtFarm", numOfWorkersAtFarm);
+    localStorage.setItem("numOfWorkersAtTent", numOfWorkersAtTent);
+    localStorage.setItem("numOfWorkersAtShack", numOfWorkersAtShack);
 
     //Add more variables!
     requestAnimationFrame(saveGame);
@@ -457,7 +473,8 @@ function saveGame() {
 
 function importGame() {
 
-    setNumOfShoes(Number(localStorage.getItem("numOfShoes")));
+    shoesPerSecond = Number(localStorage.getItem("shoesPerSecond"));
+    setNumOfShoes((Number(localStorage.getItem("numOfShoes"))) + (Number(localStorage.getItem("shoesPerSecond"))));
     setShoesPerClick(Number(localStorage.getItem("shoesPerClick")));
     shoesPerClickIterationNumber = Number(localStorage.getItem("shoesPerClickIterationNumber"));
     shoesPerClickUpgradeCost = calculateShoesPerClickCost(Number(localStorage.getItem("shoesPerClickIterationNumber")));
@@ -488,8 +505,16 @@ function importGame() {
     obtainedAutomation = (localStorage.getItem("obtainedAutomation") === "true");
     if (obtainedAutomation == true) {
         unlockAutomationButton.style.display = "none";
+        hireWorkerButton.style.display = "block";
+        buyFarmButton.style.display = "block";
+        buyTentButton.style.display = "block";
+        shoesGainedAutomaticallyLabel.style.display = "block";
+        shoesGainedAutomaticallyElement.style.display = "block";
     }
-
+    isInventoryOpen = (localStorage.getItem("isInventoryOpen") === "true");
+    if (isInventoryOpen == true) {
+        inventoryOpen();
+    }
 
 }
 
