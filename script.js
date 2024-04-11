@@ -88,6 +88,7 @@ var numOfWorkersAtFarm = 0;
 var numOfWorkersAtTent = 0;
 var numOfWorkersAtShack = 0;
 
+/* hides and shows DOM variables to default settings at the start of the game */
 titleHeading.style.display = "block";
 inventoryHeading.style.display = "none";
 shoeImage.style.display = "block";
@@ -138,8 +139,10 @@ asciiFarmOpen.style.display = "none";
 asciiTentOpen.style.display = "none";
 asciiShackOpen.style.display = "none";
 
+/* sets the numOfShoes variable to 0, updates the innerHTML of the numOfShoesElement variable, and updates the innerHTML of the tabTitle element. */
 setNumOfShoes(0);
 
+/* five functions defined to calculate the upgrade costs for each game feature */
 function calculateShoesPerClickCost(value) {
     return 2.5*(value**2)+17.5*value;
 }
@@ -164,6 +167,7 @@ function calculateShackCost(value) {
     return 2.5*(value**2)+3157.5*value+996950;
 }
 
+/* checks whether or not the user has obtained lucky ring (Grants x% chance to acquire double shoes) and if it has been obtained, then displays an alert whenever the ring activates (comparing whether Math.random() (a value between 0 inclusive and 1 exclusive) is less than 0.02 at start of the game, but user can upgrade it later) and if it doesn't activate upon clicking the shoe once then the numOfShoes variable will update normally by incrementing by the current shoesPerClick. */
 function clickOnce() {
 
     if (obtainedLuckyRing == true) {
