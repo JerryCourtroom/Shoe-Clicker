@@ -166,8 +166,7 @@ function calculateTentCost(value) {
 function calculateShackCost(value) {
     return 2.5*(value**2)+3157.5*value+996950;
 }
-
-/* checks whether or not the user has obtained lucky ring (Grants x% chance to acquire double shoes) and if it has been obtained, then displays an alert whenever the ring activates (comparing whether Math.random() (a value between 0 inclusive and 1 exclusive) is less than 0.02 at start of the game, but user can upgrade it later) and if it doesn't activate upon clicking the shoe once then the numOfShoes variable will update normally by incrementing by the current shoesPerClick. */
+/* checks whether or not the user has obtained lucky ring (Grants x% chance to acquire double shoes) and if it has been obtained, then displays an alert whenever the ring activates (comparing whether Math.random() (a value between 0 inclusive and 1 exclusive) is less than 0.02 at start of the game, but user can upgrade it later) and if it doesn't activate upon clicking the shoe once then the numOfShoes variable will update normally by incrementing by the current shoesPerClick. Otherwise, if the user has never obtained the lucky ring in the first place, then */
 function clickOnce() {
 
     if (obtainedLuckyRing == true) {
@@ -185,7 +184,7 @@ function clickOnce() {
     }
 
 }
-
+/*  */
 function upgradeSpc() {
 
     if (numOfShoes < shoesPerClickUpgradeCost) {
