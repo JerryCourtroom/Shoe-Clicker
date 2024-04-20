@@ -140,9 +140,11 @@ asciiTentOpen.style.display = "none";
 asciiShackOpen.style.display = "none";
 
 /* sets the numOfShoes variable to 0, updates the innerHTML of the numOfShoesElement variable, and updates the innerHTML of the tabTitle element. */
+
 setNumOfShoes(0);
 
 /* five functions defined to calculate the upgrade costs for each game feature */
+
 function calculateShoesPerClickCost(value) {
     return 2.5*(value**2)+17.5*value;
 }
@@ -166,7 +168,9 @@ function calculateTentCost(value) {
 function calculateShackCost(value) {
     return 2.5*(value**2)+3157.5*value+996950;
 }
-/* checks whether or not the user has obtained lucky ring (Grants x% chance to acquire double shoes) and if it has been obtained, then displays an alert whenever the ring activates (comparing whether Math.random() (a value between 0 inclusive and 1 exclusive) is less than 0.02 at start of the game, but user can upgrade it later) and if it doesn't activate upon clicking the shoe once then the numOfShoes variable will update normally by incrementing by the current shoesPerClick. Otherwise, if the user has never obtained the lucky ring in the first place, then */
+
+/* checks whether or not the user has obtained lucky ring (Grants x% chance to acquire double shoes) and if it has been obtained, then displays an alert whenever the ring activates (comparing whether Math.random() (a value between 0 inclusive and 1 exclusive) is less than 0.02 at start of the game, but user can upgrade it later) and if it doesn't activate upon clicking the shoe once then the numOfShoes variable will update normally by incrementing by the current shoesPerClick. Otherwise, if the user has never obtained the lucky ring in the first place, then numOfShoes variable will always increment normally.*/
+
 function clickOnce() {
 
     if (obtainedLuckyRing == true) {
@@ -184,7 +188,7 @@ function clickOnce() {
     }
 
 }
-/*  */
+/* Compares whether user has enough shoes to upgrade amount of shoes gained per click (shoesPerClick variable), will display alert if user cannot afford the upgrade. If user can afford upgrade, the numOfShoes variable (updated on a setInterval() every second automatically) is decremented by the upgrade cost. The iteration (stage) of shoesPerCLick that keeps track of the upgrade cost increments by 1, the variable itself increases by 1*/
 function upgradeSpc() {
 
     if (numOfShoes < shoesPerClickUpgradeCost) {
