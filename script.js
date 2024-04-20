@@ -88,7 +88,6 @@ var numOfWorkersAtFarm = 0;
 var numOfWorkersAtTent = 0;
 var numOfWorkersAtShack = 0;
 
-/* hides and shows DOM variables to default settings at the start of the game */
 titleHeading.style.display = "block";
 inventoryHeading.style.display = "none";
 shoeImage.style.display = "block";
@@ -139,11 +138,7 @@ asciiFarmOpen.style.display = "none";
 asciiTentOpen.style.display = "none";
 asciiShackOpen.style.display = "none";
 
-/* sets the numOfShoes variable to 0, updates the innerHTML of the numOfShoesElement variable, and updates the innerHTML of the tabTitle element. */
-
 setNumOfShoes(0);
-
-/* five functions defined to calculate the upgrade costs for each game feature */
 
 function calculateShoesPerClickCost(value) {
     return 2.5*(value**2)+17.5*value;
@@ -169,7 +164,23 @@ function calculateShackCost(value) {
     return 2.5*(value**2)+3157.5*value+996950;
 }
 
-/* checks whether or not the user has obtained lucky ring (Grants x% chance to acquire double shoes) and if it has been obtained, then displays an alert whenever the ring activates (comparing whether Math.random() (a value between 0 inclusive and 1 exclusive) is less than 0.02 at start of the game, but user can upgrade it later) and if it doesn't activate upon clicking the shoe once then the numOfShoes variable will update normally by incrementing by the current shoesPerClick. Otherwise, if the user has never obtained the lucky ring in the first place, then numOfShoes variable will always increment normally.*/
+function setNumOfShoes(value) {
+
+    if (isInventoryOpen == false && isWorkerPageOpen  == false) {
+        numOfShoes = value;
+        numOfShoesElement.innerHTML = numOfShoes;
+        tabTitle.innerHTML = numOfShoes + " shoes | Shoe Clicker";
+    } else if (isInventoryOpen == true) {
+        numOfShoes = value;
+        numOfShoesElement.innerHTML = numOfShoes;
+        tabTitle.innerHTML = "Inventory | Shoe Clicker";
+    } else if (isWorkerPageOpen == true) {
+        numOfShoes = value;
+        numOfShoesElement.innerHTML = numOfShoes;
+        tabTitle.innerHTML = "Worker Management | Shoe Clicker";
+    }
+    
+}
 
 function clickOnce() {
 
@@ -179,16 +190,16 @@ function clickOnce() {
             setTimeout(() => {
                 doubleShoesAlert.style.display = "none";
             }, 1000);
-            setNumOfShoes(numOfShoes + (Number(shoesPerClickElement.innerHTML)) * 2);
+            setNumOfShoes(numOfShoes + (shoesPerClick * 2));
         } else {
-            setNumOfShoes(numOfShoes + Number(shoesPerClickElement.innerHTML));
+            setNumOfShoes(numOfShoes + shoesPerClick);
         }
     } else {
-        setNumOfShoes(numOfShoes + Number(shoesPerClickElement.innerHTML));
+        setNumOfShoes(numOfShoes + shoesPerClick);
     }
 
 }
-/* Compares whether user has enough shoes to upgrade amount of shoes gained per click (shoesPerClick variable), will display alert if user cannot afford the upgrade. If user can afford upgrade, the numOfShoes variable (updated on a setInterval() every second automatically) is decremented by the upgrade cost. The iteration (stage) of shoesPerCLick that keeps track of the upgrade cost increments by 1, the variable itself increases by 1*/
+
 function upgradeSpc() {
 
     if (numOfShoes < shoesPerClickUpgradeCost) {
@@ -473,7 +484,6 @@ function saveGame() {
     localStorage.setItem("numOfWorkersAtTent", numOfWorkersAtTent);
     localStorage.setItem("numOfWorkersAtShack", numOfWorkersAtShack);
 
-    //Add more variables!
     requestAnimationFrame(saveGame);
 
 }
@@ -656,24 +666,6 @@ function excuseWorkersFromShack() {
         numOfWorkersAtShackElement.innerHTML = numOfWorkersAtShack;
     }
 
-}
-
-function setNumOfShoes(value) {
-
-    if (isInventoryOpen == false && isWorkerPageOpen  == false) {
-        numOfShoes = value;
-        numOfShoesElement.innerHTML = numOfShoes;
-        tabTitle.innerHTML = numOfShoes + " shoes | Shoe Clicker";
-    } else if (isInventoryOpen == true) {
-        numOfShoes = value;
-        numOfShoesElement.innerHTML = numOfShoes;
-        tabTitle.innerHTML = "Inventory | Shoe Clicker";
-    } else if (isWorkerPageOpen == true) {
-        numOfShoes = value;
-        numOfShoesElement.innerHTML = numOfShoes;
-        tabTitle.innerHTML = "Worker Management | Shoe Clicker";
-    }
-    
 }
 
 function setShoesPerClick(value) {
