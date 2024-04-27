@@ -532,7 +532,12 @@ function importGame() {
     if (isInventoryOpen == true) {
         inventoryOpen();
     }
-
+    workerIterationNumber = Number(localStorage.getItem("workerIterationNumber"));
+    farmIterationNumber = Number(localStorage.getItem("farmIterationNumber"));
+    tentIterationNumber = Number(localStorage.getItem("tentIterationNumber"))
+    shackIterationNumber = Number(localStorage.getItem("shackIterationNumber"));
+    numOfWorkers = Number(localStorage.getItem("numOfWorkers"));
+    hireWorkerCost = calculateWorkerCost(Number(localStorage.getItem("workerIterationNumber")));
 }
 
 if (localStorage.getItem("numOfShoes") == null) {
