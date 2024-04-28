@@ -538,6 +538,7 @@ function importGame() {
     shackIterationNumber = Number(localStorage.getItem("shackIterationNumber"));
     numOfWorkers = Number(localStorage.getItem("numOfWorkers"));
     hireWorkerCost = calculateWorkerCost(Number(localStorage.getItem("workerIterationNumber")));
+    
 }
 
 if (localStorage.getItem("numOfShoes") == null) {
