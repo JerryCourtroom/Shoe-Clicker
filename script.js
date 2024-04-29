@@ -448,6 +448,7 @@ setInterval(() => {
 
 //Loops saveGame
 function saveGame() {
+
     //this function is always running!
     localStorage.setItem("numOfShoes", numOfShoes);
     localStorage.setItem("shoesPerClick", shoesPerClick);
@@ -490,6 +491,7 @@ function saveGame() {
 
 function importGame() {
 
+    //runs right after browser reload, if the player is experienced
     shoesPerSecond = Number(localStorage.getItem("shoesPerSecond"));
     setNumOfShoes((Number(localStorage.getItem("numOfShoes"))) + (Number(localStorage.getItem("shoesPerSecond"))));
     setShoesPerClick(Number(localStorage.getItem("shoesPerClick")));
@@ -538,7 +540,27 @@ function importGame() {
     shackIterationNumber = Number(localStorage.getItem("shackIterationNumber"));
     numOfWorkers = Number(localStorage.getItem("numOfWorkers"));
     hireWorkerCost = calculateWorkerCost(Number(localStorage.getItem("workerIterationNumber")));
-    
+    hireWorkerButton.innerHTML = "[x" + numOfWorkers + "] " + "Hire Worker (" + hireWorkerCost + " shoes)";
+    numOfFarms = Number(localStorage.getItem("numOfFarms"));
+    buyFarmCost = calculateFarmCost(Number(localStorage.getItem("farmIterationNumber")));
+    buyFarmButton.innerHTML = "[x" + numOfFarms + "] " + "Buy Farm (" + buyFarmCost + " shoes)";
+    numOfTents = Number(localStorage.getItem("numOfTents"));
+    buyTentCost = calculateTentCost(Number(localStorage.getItem("tentIterationNumber")));
+    buyTentButton.innerHTML = "[x" + numOfTents + "] " + "Buy Tent (" + buyTentCost + " shoes)";
+    numOfShacks = Number(localStorage.getItem("numOfShacks"));
+    buyShackCost = calculateShackCost(Number(localStorage.getItem("shackIterationNumber")));
+    buyShackButton.innerHTML = "[x" + numOfShacks + "] " + "Buy Shack (" + buyShackCost + " shoes)";
+    shoesGainedAutomaticallyElement.innerHTML = shoesPerSecond;
+    if (tentIterationNumber >= 16) {
+        buyShackButton.style.display = "block";
+    }
+    obtainedStatus = (localStorage.getItem("obtainedStatus") === "true");
+    if (obtainedStatus == true) {
+        workerStatusLabel.style.display = "block";
+        workerStatusElement.style.display = "block";
+        manageWorkersButton.style.display = "block";
+    }
+
 }
 
 if (localStorage.getItem("numOfShoes") == null) {
