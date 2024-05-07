@@ -531,9 +531,6 @@ function importGame() {
         shoesGainedAutomaticallyElement.style.display = "block";
     }
     isInventoryOpen = (localStorage.getItem("isInventoryOpen") === "true");
-    if (isInventoryOpen == true) {
-        inventoryOpen();
-    }
     workerIterationNumber = Number(localStorage.getItem("workerIterationNumber"));
     farmIterationNumber = Number(localStorage.getItem("farmIterationNumber"));
     tentIterationNumber = Number(localStorage.getItem("tentIterationNumber"))
@@ -560,6 +557,21 @@ function importGame() {
         workerStatusElement.style.display = "block";
         manageWorkersButton.style.display = "block";
     }
+    workerStatusNumber = Number(localStorage.getItem("workerStatusNumber"));
+    isWorkerPageOpen = (localStorage.getItem("isWorkerPageOpen") === "true");
+    if (isInventoryOpen == true) {
+        inventoryOpen();
+    }
+    if (isWorkerPageOpen == true) {
+        workerManagementPageOpen();
+    }
+    totalNumOfWorkersRemaining = Number(localStorage.getItem("totalNumOfWorkersRemaining"));
+    numOfWorkersAtFarm = Number(localStorage.getItem("numOfWorkersAtFarm"));
+    numOfWorkersAtFarmElement.innerHTML = numOfWorkersAtFarm;
+    numOfWorkersAtTent = Number(localStorage.getItem("numOfWorkersAtTent"));
+    numOfWorkersAtTentElement.innerHTML = numOfWorkersAtTent;
+    numOfWorkersAtShack = Number(localStorage.getItem("numOfWorkersAtShack"));
+    numOfWorkersAtShackElement.innerHTML = numOfWorkersAtShack;
 
 }
 
