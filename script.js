@@ -352,7 +352,11 @@ function buyFarm() {
         numOfFarms += 1;
         shoesPerSecond += 50;
         shoesGainedAutomaticallyElement.innerHTML = shoesPerSecond;
-        buyFarmButton.innerHTML = "[x" + numOfFarms + "] " + "Buy Farm (" + buyFarmCost + " shoes)"; 
+        if (numOfWorkersAtFarm > 0) {
+            buyFarmButton.innerHTML = "[x" + numOfFarms + "] " + "Buy Farm (" + buyFarmCost + " shoes)" + "(+" + numOfWorkersAtFarm + " worker(s))";
+        } else {
+            buyFarmButton.innerHTML = "[x" + numOfFarms + "] " + "Buy Farm (" + buyFarmCost + " shoes)";
+        }
     }
 
 }
@@ -441,10 +445,16 @@ setInterval(() => {
     if (workerStatusNumber <= 0) {
         tabTitle.innerHTML = "[💥] Strike!!! | Shoe Clicker";
     }
-
+    if (numOfWorkersAtFarm > 0) {
+        buyFarmButton.innerHTML = "[x" + numOfFarms + "] " + "Buy Farm (" + buyFarmCost + " shoes)" + "(+" + numOfWorkersAtFarm + " worker(s))";
+    } else {
+        buyFarmButton.innerHTML = "[x" + numOfFarms + "] " + "Buy Farm (" + buyFarmCost + " shoes)";
+    }
     totalNumOfWorkersElement.innerHTML = totalNumOfWorkersRemaining;
 
 }, 500);
+
+
 
 //Loops saveGame
 function saveGame() {
@@ -540,7 +550,6 @@ function importGame() {
     hireWorkerButton.innerHTML = "[x" + numOfWorkers + "] " + "Hire Worker (" + hireWorkerCost + " shoes)";
     numOfFarms = Number(localStorage.getItem("numOfFarms"));
     buyFarmCost = calculateFarmCost(Number(localStorage.getItem("farmIterationNumber")));
-    buyFarmButton.innerHTML = "[x" + numOfFarms + "] " + "Buy Farm (" + buyFarmCost + " shoes)";
     numOfTents = Number(localStorage.getItem("numOfTents"));
     buyTentCost = calculateTentCost(Number(localStorage.getItem("tentIterationNumber")));
     buyTentButton.innerHTML = "[x" + numOfTents + "] " + "Buy Tent (" + buyTentCost + " shoes)";
@@ -568,6 +577,11 @@ function importGame() {
     totalNumOfWorkersRemaining = Number(localStorage.getItem("totalNumOfWorkersRemaining"));
     numOfWorkersAtFarm = Number(localStorage.getItem("numOfWorkersAtFarm"));
     numOfWorkersAtFarmElement.innerHTML = numOfWorkersAtFarm;
+    if (numOfWorkersAtFarm > 0) {
+        buyFarmButton.innerHTML = "[x" + numOfFarms + "] " + "Buy Farm (" + buyFarmCost + " shoes)" + "(+" + numOfWorkersAtFarm + " worker(s))"; 
+    } else {
+        buyFarmButton.innerHTML = "[x" + numOfFarms + "] " + "Buy Farm (" + buyFarmCost + " shoes)";
+    }
     numOfWorkersAtTent = Number(localStorage.getItem("numOfWorkersAtTent"));
     numOfWorkersAtTentElement.innerHTML = numOfWorkersAtTent;
     numOfWorkersAtShack = Number(localStorage.getItem("numOfWorkersAtShack"));
@@ -606,7 +620,10 @@ function appointWorkersToFarm() {
         }, 1000);
         totalNumOfWorkersRemaining -= 1;
         numOfWorkersAtFarm += 1;
+        shoesPerSecond += 10;
+        shoesGainedAutomaticallyElement.innerHTML = shoesPerSecond;
         numOfWorkersAtFarmElement.innerHTML = numOfWorkersAtFarm;
+        buyFarmButton.innerHTML = "[x" + numOfFarms + "] " + "Buy Farm (" + buyFarmCost + " shoes)" + "(Boosted by " + numOfWorkersAtFarm + " workers)";
     }
   
 }
