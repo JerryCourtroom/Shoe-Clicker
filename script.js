@@ -454,8 +454,6 @@ setInterval(() => {
 
 }, 500);
 
-
-
 //Loops saveGame
 function saveGame() {
 
